@@ -1,4 +1,4 @@
-package com.example.supernovaorganisation.supernova12;
+package com.example.supernovaorganisation.supernova;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
