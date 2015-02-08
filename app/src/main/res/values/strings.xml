@@ -6,8 +6,8 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
+        <item>Player</item>
+        <item>Fleet</item>
         <item>Earth</item>
         <item>Mars</item>
         <item>Jupiter</item>
@@ -16,10 +16,62 @@
         <item>Neptune</item>
     </string-array>
 
+    <!--
+    <string-array name="mercury_array">
+        <item>Undiscovered City 1 (Mercury)</item>
+        <item>Undiscovered City 2 (Mercury)</item>
+        <item>Undiscovered City 3 (Mercury)</item>
+        <item>Undiscovered City 4 (Mercury)</item>
+    </string-array>
+    <string-array name="venus_array">
+        <item>Undiscovered City 1 (Venus)</item>
+        <item>Undiscovered City 2 (Venus)</item>
+        <item>Undiscovered City 3 (Venus)</item>
+        <item>Undiscovered City 4 (Venus)</item>
+    </string-array>
+    <string-array name="earth_array">
+        <item>New York</item>
+        <item>Hong Kong</item>
+        <item>New Delhi</item>
+        <item>London</item>
+    </string-array>
+    <string-array name="mars_array">
+        <item>Undiscovered City 1 (Mars)</item>
+        <item>Undiscovered City 2 (Mars)</item>
+        <item>Undiscovered City 3 (Mars)</item>
+        <item>Undiscovered City 4 (Mars)</item>
+    </string-array>
+    <string-array name="jupiter_array">
+        <item>Undiscovered City 1 (Jupiter)</item>
+        <item>Undiscovered City 2 (Jupiter)</item>
+        <item>Undiscovered City 3 (Jupiter)</item>
+        <item>Undiscovered City 4 (Jupiter)</item>
+    </string-array>
+    <string-array name="saturn_array">
+        <item>Undiscovered City 1 (Saturn)</item>
+        <item>Undiscovered City 2 (Saturn)</item>
+        <item>Undiscovered City 3 (Saturn)</item>
+        <item>Undiscovered City 4 (Saturn)</item>
+    </string-array>
+    <string-array name="uranus_array">
+        <item>Undiscovered City 1 (Uranus)</item>
+        <item>Undiscovered City 2 (Uranus)</item>
+        <item>Undiscovered City 3 (Uranus)</item>
+        <item>Undiscovered City 4 (Uranus)</item>
+    </string-array>
+    <string-array name="neptune_array">
+        <item>Undiscovered City 1 (Neptune)</item>
+        <item>Undiscovered City 2 (Neptune)</item>
+        <item>Undiscovered City 3 (Neptune)</item>
+        <item>Undiscovered City 4 (Neptune)</item>
+    </string-array>
+    -->
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_player_fragment">Hello player!</string>
+    <string name="hello_fleet_fragment">Hello fleet!</string>
 
 </resources>

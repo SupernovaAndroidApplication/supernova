@@ -137,17 +137,26 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
+            //loadContentList(position);
         }
     }
 
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
-        // Create a new fragment and specify the planet to show based on position
-        Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
+        Fragment fragment;
+        if(position == 0) {
+            fragment = new PlayerCardFragment();
+        }
+        else if(position == 1) {
+            fragment = new FleetDashboardFragment();
+        }
+        else {
+            // Create a new fragment and specify the planet to show based on position
+            fragment = new PlanetFragment();
+            Bundle args = new Bundle();
+            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+        }
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
@@ -182,4 +191,57 @@ public class MainActivity extends ActionBarActivity {
         // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    /** Two-levels navigation */
+    /** The method that will be called on item click for the main list */
+    /*private void loadContentList(int position) {
+        setTitle(mPlanetTitles[position]);
+
+        String[] content;
+
+        switch(position) {
+            case 0:
+                content = getResources().getStringArray(R.array.mercury_array);
+                break;
+            case 1:
+                content = getResources().getStringArray(R.array.venus_array);
+                break;
+            case 2:
+                content = getResources().getStringArray(R.array.earth_array);
+                break;
+            case 3:
+                content = getResources().getStringArray(R.array.mars_array);
+                break;
+            case 4:
+                content = getResources().getStringArray(R.array.jupiter_array);
+                break;
+            case 5:
+                content = getResources().getStringArray(R.array.saturn_array);
+                break;
+            case 6:
+                content = getResources().getStringArray(R.array.uranus_array);
+                break;
+            case 7:
+                content = getResources().getStringArray(R.array.neptune_array);
+                break;
+            default:
+                content = getResources().getStringArray(R.array.neptune_array);
+        }
+
+        // Change ListView's adapter
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, content));
+
+        // Change OnItemClickListener // CityItemClickListener is defined below
+        mDrawerList.setOnItemClickListener(new CityItemClickListener());
+    }*/
+
+    /*private class CityItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // This is the method that was being called on planet click
+            // in the original example. Implementation of it is up to you
+            selectItem(position);
+        }
+    }*/
 }
