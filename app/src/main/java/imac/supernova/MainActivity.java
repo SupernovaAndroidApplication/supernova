@@ -1,6 +1,6 @@
 package imac.supernova;
 
-import java.util.Locale;
+//import java.util.Locale;
 
 //import android.app.Activity;
 import android.app.Fragment;
@@ -14,15 +14,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 //import android.util.Log;
-import android.view.LayoutInflater;
+//import android.view.LayoutInflater;
 import android.view.Menu;
 //import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+//import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+//import android.widget.ImageView;
 import android.widget.ListView;
 //import android.widget.Toast;
 
@@ -181,30 +181,5 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
-    public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
-
-        public PlanetFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.planets_array)[i];
-
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                    "drawable", getActivity().getPackageName());
-            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
-            return rootView;
-        }
     }
 }
