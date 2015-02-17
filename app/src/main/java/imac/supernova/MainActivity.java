@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mPlanetTitles;
+    private String[] mNavigationTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +43,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mNavigationTitles = getResources().getStringArray(R.array.titles_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // Set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mNavigationTitles));
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -137,13 +137,13 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
-            //loadContentList(position);
         }
     }
 
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
-        Fragment fragment;
+        Fragment fragment = null;
+
         switch (position) {
             case 0:
                 fragment = new PlayerCardFragment();
@@ -158,33 +158,16 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new ExplorationModeFragment();
                 break;
             default:
-                // Create a new fragment and specify the planet to show based on position
-                fragment = new PlanetFragment();
-                Bundle args = new Bundle();
-                args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-                fragment.setArguments(args);
                 break;
         }
-        /*if(position == 0) {
-            fragment = new PlayerCardFragment();
-        }
-        else if(position == 1) {
-            fragment = new FleetDashboardFragment();
-        }
-        else {
-            // Create a new fragment and specify the planet to show based on position
-            fragment = new PlanetFragment();
-            Bundle args = new Bundle();
-            args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            fragment.setArguments(args);
-        }*/
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
+        setTitle(mNavigationTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
@@ -213,56 +196,4 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /** Two-levels navigation */
-    /** The method that will be called on item click for the main list */
-    /*private void loadContentList(int position) {
-        setTitle(mPlanetTitles[position]);
-
-        String[] content;
-
-        switch(position) {
-            case 0:
-                content = getResources().getStringArray(R.array.mercury_array);
-                break;
-            case 1:
-                content = getResources().getStringArray(R.array.venus_array);
-                break;
-            case 2:
-                content = getResources().getStringArray(R.array.earth_array);
-                break;
-            case 3:
-                content = getResources().getStringArray(R.array.mars_array);
-                break;
-            case 4:
-                content = getResources().getStringArray(R.array.jupiter_array);
-                break;
-            case 5:
-                content = getResources().getStringArray(R.array.saturn_array);
-                break;
-            case 6:
-                content = getResources().getStringArray(R.array.uranus_array);
-                break;
-            case 7:
-                content = getResources().getStringArray(R.array.neptune_array);
-                break;
-            default:
-                content = getResources().getStringArray(R.array.neptune_array);
-        }
-
-        // Change ListView's adapter
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, content));
-
-        // Change OnItemClickListener // CityItemClickListener is defined below
-        mDrawerList.setOnItemClickListener(new CityItemClickListener());
-    }*/
-
-    /*private class CityItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // This is the method that was being called on planet click
-            // in the original example. Implementation of it is up to you
-            selectItem(position);
-        }
-    }*/
 }
