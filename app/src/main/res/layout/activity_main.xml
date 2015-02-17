@@ -12,10 +12,8 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <!--<TextView android:text="@string/hello_world" android:layout_width="wrap_content"
             android:layout_height="wrap_content" />-->
-
     </FrameLayout>
 
     <!-- The navigation drawer -->
@@ -35,6 +33,4 @@
         android:dividerHeight="0dp"
         android:background="#111"/>
 
-    <!--<TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
 </android.support.v4.widget.DrawerLayout>
