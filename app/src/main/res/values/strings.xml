@@ -6,9 +6,9 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="planets_array">
-        <item>Player</item>
-        <item>Fleet</item>
-        <item>Earth</item>
+        <item>Player card</item>
+        <item>Fleet dashboard</item>
+        <item>Alien technologies</item>
         <item>Mars</item>
         <item>Jupiter</item>
         <item>Saturn</item>
@@ -69,9 +69,10 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <!--<string name="action_websearch">Web search</string>-->
+    <!-- <string name="action_websearch">Web search</string> -->
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="hello_player_fragment">Hello player!</string>
     <string name="hello_fleet_fragment">Hello fleet!</string>
+    <string name="hello_technologies_fragment">Hello alien technologies!</string>
 
 </resources>

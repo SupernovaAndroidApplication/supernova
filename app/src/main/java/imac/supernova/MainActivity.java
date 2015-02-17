@@ -144,7 +144,25 @@ public class MainActivity extends ActionBarActivity {
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
         Fragment fragment;
-        if(position == 0) {
+        switch (position) {
+            case 0:
+                fragment = new PlayerCardFragment();
+                break;
+            case 1:
+                fragment = new PlayerCardFragment();
+                break;
+            case 2:
+                fragment = new AlienTechnologiesFragment();
+                break;
+            default:
+                // Create a new fragment and specify the planet to show based on position
+                fragment = new PlanetFragment();
+                Bundle args = new Bundle();
+                args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+                fragment.setArguments(args);
+                break;
+        }
+        /*if(position == 0) {
             fragment = new PlayerCardFragment();
         }
         else if(position == 1) {
@@ -156,7 +174,7 @@ public class MainActivity extends ActionBarActivity {
             Bundle args = new Bundle();
             args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             fragment.setArguments(args);
-        }
+        }*/
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
