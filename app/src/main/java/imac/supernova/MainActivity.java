@@ -149,10 +149,13 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new PlayerCardFragment();
                 break;
             case 1:
-                fragment = new PlayerCardFragment();
+                fragment = new FleetDashboardFragment();
                 break;
             case 2:
                 fragment = new AlienTechnologiesFragment();
+                break;
+            case 3:
+                fragment = new ExplorationModeFragment();
                 break;
             default:
                 // Create a new fragment and specify the planet to show based on position
