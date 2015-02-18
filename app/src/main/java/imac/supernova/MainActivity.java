@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         mNavItems.add(new NavItem(mNavigationTitles[0], mNavigationSubtitles[0], R.drawable.ic_action_person));
         mNavItems.add(new NavItem(mNavigationTitles[1], mNavigationSubtitles[1], R.drawable.ic_action_settings));
         mNavItems.add(new NavItem(mNavigationTitles[2], mNavigationSubtitles[2], R.drawable.ic_action_about));
-        mNavItems.add(new NavItem(mNavigationTitles[3], mNavigationSubtitles[3], R.drawable.ic_action_person));
+        mNavItems.add(new NavItem(mNavigationTitles[3], mNavigationSubtitles[3], R.drawable.ic_action_map));
 
         // Set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
