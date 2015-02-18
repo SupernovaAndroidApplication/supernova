@@ -38,41 +38,43 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
-    private static String TAG = MainActivity.class.getSimpleName();
-
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    //private CharSequence mDrawerTitle;
+    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    ArrayList<NavItem> mNavItems = new ArrayList<NavItem>(); //private String[] mNavigationTitles;
+    private String[] mNavigationTitles;
+    private String[] mNavigationSubtitles;
+    ArrayList<NavItem> mNavItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavItems.add(new NavItem("Home", "Meetup destination", R.drawable.ic_action_person));
-        mNavItems.add(new NavItem("Preferences", "Change your preferences", R.drawable.ic_action_settings));
-        mNavItems.add(new NavItem("About", "Get to know about us", R.drawable.ic_action_about));
+        // Get navigation titles items
+        mTitle = mDrawerTitle = getTitle();
+        mNavigationTitles = getResources().getStringArray(R.array.titles_array);
+        mNavigationSubtitles = getResources().getStringArray(R.array.subtitles_array);
 
-        //mTitle = mDrawerTitle = getTitle();
-        //mNavigationTitles = getResources().getStringArray(R.array.titles_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //mDrawerList = (ListView) findViewById(R.id.nav_list);
-        //mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        // Create navigation items
+        mNavItems.add(new NavItem(mNavigationTitles[0], mNavigationSubtitles[0], R.drawable.ic_action_person));
+        mNavItems.add(new NavItem(mNavigationTitles[1], mNavigationSubtitles[1], R.drawable.ic_action_settings));
+        mNavItems.add(new NavItem(mNavigationTitles[2], mNavigationSubtitles[2], R.drawable.ic_action_about));
+        mNavItems.add(new NavItem(mNavigationTitles[3], mNavigationSubtitles[3], R.drawable.ic_action_person));
 
         // Set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
         // Set the adapter for the list view and populate the Navigation Drawer with options
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawer_pane);
         mDrawerList = (ListView) findViewById(R.id.nav_list);
         DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
         mDrawerList.setAdapter(adapter);
-        //mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                //R.layout.drawer_list_item, mNavigationTitles));
+
         // Set the list's click listener for ListView in the navigation drawer
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,25 +98,24 @@ public class MainActivity extends ActionBarActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Log.d(TAG, "onDrawerClosed: " + getTitle());
-                //getSupportActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                //getSupportActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()=
+                getSupportActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
             selectItem(0);
-        }*/
+        }
     }
 
     @Override
@@ -124,7 +125,9 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    /* Called whenever we call invalidateOptionsMenu() */
+    /**
+     *  Called whenever we call invalidateOptionsMenu()
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
@@ -161,7 +164,6 @@ public class MainActivity extends ActionBarActivity {
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -176,20 +178,11 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /** Swaps fragments in the main content view
-     * (called when a particular item from the navigation drawer is selected) */
+    /**
+     * Swaps fragments in the main content view
+     * (called when a particular item from the navigation drawer is selected)
+     */
     private void selectItem(int position) {
-        Fragment fragment = new PreferencesFragment();
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
-
-        // Highlight the selected item, update the title, and close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mNavItems.get(position).mTitle);
-        mDrawerLayout.closeDrawer(mDrawerPane);
-    }
-    /*private void selectItem(int position) {
         Fragment fragment = null;
 
         switch (position) {
@@ -209,16 +202,14 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
 
-        // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
-        //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mNavigationTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }*/
+        setTitle(mNavItems.get(position).mTitle);
+        mDrawerLayout.closeDrawer(mDrawerPane);
+    }
 
     @Override
     public void setTitle(CharSequence title) {
@@ -226,7 +217,14 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(mTitle);
     }
 
-    /*** Additional classes ***/
+
+    /************************/
+    /**** Inner classes ****/
+    /**********************/
+
+    /**
+     * Navigation items class
+     */
     class NavItem {
         String mTitle;
         String mSubtitle;
@@ -239,6 +237,9 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    /**
+     * Drawer list adapter class
+     */
     class DrawerListAdapter extends BaseAdapter {
         Context mContext;
         ArrayList<NavItem> mNavItems;
@@ -286,4 +287,5 @@ public class MainActivity extends ActionBarActivity {
             return view;
         }
     }
+
 }

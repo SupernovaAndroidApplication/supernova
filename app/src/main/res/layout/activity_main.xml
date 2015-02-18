@@ -13,18 +13,17 @@
 
     <!-- The navigation drawer -->
     <RelativeLayout
-        android:layout_width="240dp"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:id="@+id/drawer_pane"
         android:layout_gravity="start">
 
         <!-- Profile Box -->
-
         <RelativeLayout
             android:id="@+id/profile_box"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/material_blue_grey_800"
+            android:background="#ff5c5c5c"
             android:padding="8dp" >
 
             <ImageView
@@ -46,7 +45,7 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rishabh"
+                    android:text="[Player #1]"
                     android:textColor="#fff"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -57,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginTop="4dp"
-                    android:text="View Profile"
+                    android:text="[Player's race]"
                     android:textColor="#fff"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -66,7 +65,7 @@
         <!-- List of Actions (pages) -->
         <ListView
             android:id="@+id/nav_list"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_below="@+id/profile_box"

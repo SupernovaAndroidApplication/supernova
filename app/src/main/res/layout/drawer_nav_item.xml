@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:background="?android:attr/activatedBackgroundIndicator">
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
     <!-- Icon -->
     <ImageView
