@@ -9,10 +9,10 @@ public class Bomber extends Ship {
 
     public Bomber(Player owner){
         super(owner);
-        maxHealth = 3;
-        health = maxHealth;
-        maxMove = 3;
-        damage = 2;
-        range = 1;
+        setMaxHealth(3);
+        setHealth(getMaxHealth());
+        setMaxMove(3);
+        setDamage(2);
+        setRange(1);
     }
 }

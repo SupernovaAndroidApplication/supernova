@@ -9,10 +9,10 @@ public class Cruiser extends Ship {
 
     public Cruiser(Player owner){
         super(owner);
-        maxHealth = 2;
-        health = maxHealth;
-        maxMove = 5;
-        damage = 1;
-        range = 1;
+        setMaxHealth(2);
+        setHealth(getMaxHealth());
+        setMaxMove(5);
+        setDamage(1);
+        setRange(1);
     }
 }

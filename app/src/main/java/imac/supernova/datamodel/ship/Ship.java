@@ -7,14 +7,15 @@ import imac.supernova.datamodel.Player;
  */
 public class Ship {
 
-    Player owner;
-    int health;
-    int maxHealth;
-    int maxMove;
-    int damage;
-    int range;
-    boolean hasWeapon;
-    boolean hasShield;
+    private int id;
+    private Player owner;
+    private int health;
+    private int maxHealth;
+    private int maxMove;
+    private int damage;
+    private int range;
+    private boolean hasWeapon;
+    private boolean hasShield;
 
     public Ship(Player owner){
         System.out.println("Création d'un vaisseau");
@@ -70,25 +71,72 @@ public class Ship {
         System.out.println("Vaisseau détruit : " +this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
     }
 
+    /**
+     * Getters and setters
+     */
+    // Id
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    // Damage
     public int getDamage() {
         return damage;
     }
 
-    public int getHealth() {
-        return health;
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
-    public int getRange() {
-        return range;
+    // Health
+    public int getHealth() {
+        return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
     }
 
+    // Max Health
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    // Max Move
+    public int getMaxMove() {
+        return maxMove;
+    }
+
+    public void setMaxMove(int maxMove) {
+        this.maxMove = maxMove;
+    }
+
+    // Range
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    // Owner
     public Player getOwner() {
         return owner;
     }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
 
     @Override
     public String toString() {
