@@ -137,6 +137,23 @@ public class Ship {
         this.owner = owner;
     }
 
+    // Weapon
+    public boolean getHasWeapon() {
+        return hasWeapon;
+    }
+
+    public void setHasWeapon(boolean hasWeapon) {
+        this.hasWeapon = hasWeapon;
+    }
+
+    // Shield
+    public boolean getHasShield() {
+        return hasShield;
+    }
+
+    public void setHasShield(boolean hasShield) {
+        this.hasShield = hasShield;
+    }
 
     @Override
     public String toString() {
