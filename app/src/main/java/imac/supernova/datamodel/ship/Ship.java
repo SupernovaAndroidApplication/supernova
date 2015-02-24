@@ -7,15 +7,14 @@ import imac.supernova.datamodel.Player;
  */
 public class Ship {
 
-    private int id;
-    private Player owner;
-    private int health;
-    private int maxHealth;
-    private int maxMove;
-    private int damage;
-    private int range;
-    private boolean hasWeapon;
-    private boolean hasShield;
+    Player owner;
+    int health;
+    int maxHealth;
+    int maxMove;
+    int damage;
+    int range;
+    boolean hasWeapon;
+    boolean hasShield;
 
     /**
      * Ship constructor
