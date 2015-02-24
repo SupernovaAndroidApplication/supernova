@@ -7,6 +7,7 @@ import imac.supernova.datamodel.Player;
  */
 public class Ship {
 
+    int id;
     Player owner;
     int health;
     int maxHealth;
