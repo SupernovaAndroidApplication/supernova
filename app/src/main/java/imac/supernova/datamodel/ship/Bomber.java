@@ -1,6 +1,6 @@
-package com.example.supernovaorganisation.supernova.modele.Ship;
+package imac.supernova.datamodel.ship;
 
-import com.example.supernovaorganisation.supernova.modele.Player;
+import imac.supernova.datamodel.Player;
 
 /**
  * Created by Clara on 05/02/2015.

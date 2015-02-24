@@ -1,7 +1,7 @@
-package com.example.supernovaorganisation.supernova.modele;
+package imac.supernova.datamodel;
 
-import com.example.supernovaorganisation.supernova.modele.Ship.Fighter;
-import com.example.supernovaorganisation.supernova.modele.Ship.Ship;
+import imac.supernova.datamodel.ship.Fighter;
+import imac.supernova.datamodel.ship.Ship;
 
 import java.util.ArrayList;
 import java.util.List;

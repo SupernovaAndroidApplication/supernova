@@ -1,4 +1,4 @@
-package com.example.supernovaorganisation.supernova.modele;
+package imac.supernova.datamodel;
 
 import java.util.ArrayList;
 
