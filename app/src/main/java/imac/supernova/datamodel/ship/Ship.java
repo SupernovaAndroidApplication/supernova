@@ -17,58 +17,15 @@ public class Ship {
     private boolean hasWeapon;
     private boolean hasShield;
 
-    public Ship(Player owner){
+    /**
+     * Ship constructor
+     * @param owner
+     */
+    public Ship(Player owner) {
         System.out.println("Création d'un vaisseau");
         this.owner = owner;
         this.hasWeapon = false;
         this.hasShield = false;
-    }
-
-    public void regenerateHealth(){
-        this.health = this.maxHealth;
-    }
-
-    public void installWeapon(){
-        if(!this.hasWeapon){
-            this.hasWeapon = true;
-            this.damage +=1;
-            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-
-        }
-        else{
-            System.out.println("Vous avez déjà installé une arme ! ");
-        }
-    }
-
-    public void installShield(){
-        if(!this.hasShield){
-            this.hasShield = true;
-            this.health += 1;
-            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-        }
-        else{
-            System.out.println("Vous avez déjà installé un bouclier ! ");
-        }
-    }
-
-    public void attack(Ship enemy){
-
-        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
-        +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
-
-        if(enemy.hasShield){
-            enemy.hasShield = false;
-            System.out.println("Bouclier détruit sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
-        }
-        enemy.setHealth(enemy.getHealth() - this.damage);
-        if(enemy.health <= 0){
-            enemy.death();
-        }
-    }
-
-    public void death(){
-        this.getOwner().getFleet().remove(this);
-        System.out.println("Vaisseau détruit : " +this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
     }
 
     /**
@@ -155,6 +112,10 @@ public class Ship {
         this.hasShield = hasShield;
     }
 
+    /**
+     * toString()
+     * @return String
+     */
     @Override
     public String toString() {
         return "Owner : " +this.getOwner().getName()
@@ -165,5 +126,67 @@ public class Ship {
                 + "  Damage : " + this.damage
                 +" Weapon : " + this.hasWeapon
                 + " Shield : " + this.hasShield;
+    }
+
+    /**
+     * Regenerate the health
+     */
+    public void regenerateHealth() {
+        this.health = this.maxHealth;
+    }
+
+    /**
+     * Install a weapon
+     */
+    public void installWeapon() {
+        if(!this.hasWeapon){
+            this.hasWeapon = true;
+            this.damage +=1;
+            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+
+        }
+        else {
+            System.out.println("Vous avez déjà installé une arme ! ");
+        }
+    }
+
+    /**
+     * Install a shield
+     */
+    public void installShield() {
+        if(!this.hasShield) {
+            this.hasShield = true;
+            this.health += 1;
+            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+        }
+        else {
+            System.out.println("Vous avez déjà installé un bouclier ! ");
+        }
+    }
+
+    /**
+     * Attack an enemy ship
+     * @param enemy
+     */
+    public void attack(Ship enemy) {
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+        +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+
+        if(enemy.hasShield) {
+            enemy.hasShield = false;
+            System.out.println("Bouclier détruit sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+        }
+        enemy.setHealth(enemy.getHealth() - this.damage);
+        if(enemy.health <= 0) {
+            enemy.death();
+        }
+    }
+
+    /**
+     * Remove a dead ship from the player's fleet
+     */
+    public void death() {
+        this.getOwner().getFleet().remove(this);
+        System.out.println("Vaisseau détruit : " +this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
     }
 }
