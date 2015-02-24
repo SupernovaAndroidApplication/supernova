@@ -20,7 +20,7 @@ public class ShipOpenHelper extends SQLiteOpenHelper {
     static final String KEY_ID = "id";
     static final String KEY_MAXHEALTH = "maxHealth";
     static final String KEY_MAXMOVE = "maxMove";
-    static final String[] COLUMNS = { KEY_ID, KEY_MAXHEALTH, KEY_MAXMOVE };
+    //static final String[] COLUMNS = { KEY_ID, KEY_MAXHEALTH, KEY_MAXMOVE };
 
     // SQL query for creating database
     private static final String QUERY_DB_CREATION = "CREATE TABLE "

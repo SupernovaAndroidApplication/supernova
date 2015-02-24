@@ -6,7 +6,6 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import imac.supernova.datamodel.ship.Ship;
 
@@ -162,5 +161,5 @@ public class ShipRepository extends Repository {
         c.close();
         return ship;
     }
-    
+
 }
