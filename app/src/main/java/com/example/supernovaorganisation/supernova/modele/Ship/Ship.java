@@ -1,6 +1,9 @@
 package com.example.supernovaorganisation.supernova.modele.Ship;
 
+import com.example.supernovaorganisation.supernova.modele.AlienWreckage;
+import com.example.supernovaorganisation.supernova.modele.Asteroid;
 import com.example.supernovaorganisation.supernova.modele.Player;
+import com.example.supernovaorganisation.supernova.modele.Race;
 
 /**
  * Created by Clara on 05/02/2015.
@@ -26,6 +29,13 @@ public class Ship {
         this.health = this.maxHealth;
     }
 
+    public void buyWeapon(){
+        if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installWeapon();
+        }
+    }
+
     public void installWeapon(){
         if(!this.hasWeapon){
             this.hasWeapon = true;
@@ -35,6 +45,13 @@ public class Ship {
         }
         else{
             System.out.println("Vous avez déjà installé une arme ! ");
+        }
+    }
+
+    public void buyShield(){
+        if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installShield();
         }
     }
 
@@ -49,7 +66,7 @@ public class Ship {
         }
     }
 
-    public void attack(Ship enemy){
+    public void attackShip(Ship enemy){
 
         System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
         +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
@@ -62,6 +79,22 @@ public class Ship {
         if(enemy.health <= 0){
             enemy.death();
         }
+    }
+
+    public void attackAsteroid(Asteroid asteroid){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+asteroid.getClass().getSimpleName().toString());
+
+        // TODO appeler carte exploration pour remplir une nouvelle case
+        this.owner.earnCredit();
+    }
+
+    public void attackAlienWreckage(AlienWreckage wreckage){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+wreckage.getClass().getSimpleName().toString());
+
+        // TODO donner une carte alien au joueur
+        // TODO appeler carte exploration pour remplir une nouvelle case
     }
 
     public void death(){
