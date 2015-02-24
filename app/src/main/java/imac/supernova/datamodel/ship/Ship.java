@@ -28,6 +28,8 @@ public class Ship {
         this.hasShield = false;
     }
 
+    public Ship() {}
+
     /**
      * Getters and setters
      */
