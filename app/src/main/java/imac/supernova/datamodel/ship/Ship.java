@@ -6,6 +6,7 @@ import imac.supernova.datamodel.Player;
  * Created by Clara on 05/02/2015.
  */
 public class Ship {
+
     Player owner;
     int health;
     int maxHealth;
@@ -15,9 +16,9 @@ public class Ship {
     boolean hasWeapon;
     boolean hasShield;
 
-    public Ship(Player i_owner){
+    public Ship(Player owner){
         System.out.println("Création d'un vaisseau");
-        this.owner = i_owner;
+        this.owner = owner;
         this.hasWeapon = false;
         this.hasShield = false;
     }

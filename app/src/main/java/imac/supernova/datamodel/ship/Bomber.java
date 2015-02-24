@@ -6,6 +6,7 @@ import imac.supernova.datamodel.Player;
  * Created by Clara on 05/02/2015.
  */
 public class Bomber extends Ship {
+
     public Bomber(Player owner){
         super(owner);
         maxHealth = 3;
