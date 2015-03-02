@@ -2,7 +2,64 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="imac.supernova.FleetDashboardFragment">
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_fleet_fragment" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_cruiser"
+                android:text="Cruiser"
+                android:drawableRight="@drawable/action_search" />
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_bomber_1"
+                android:text="Bomber #1"
+                android:drawableRight="@drawable/action_search"
+                android:layout_below="@+id/button_cruiser" />
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_bomber_2"
+                android:text="Bomber #2"
+                android:drawableRight="@drawable/action_search"
+                android:layout_below="@+id/button_bomber_1" />
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_fighter_1"
+                android:text="Fighter #1"
+                android:drawableRight="@drawable/action_search"
+                android:layout_below="@+id/button_bomber_2" />
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_fighter_2"
+                android:text="Fighter #2"
+                android:drawableRight="@drawable/action_search"
+                android:layout_below="@+id/button_fighter_1" />
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/button_fighter_3"
+                android:text="Fighter #3"
+                android:drawableRight="@drawable/action_search"
+                android:layout_below="@+id/button_fighter_2" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffc6c6c6">
+
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:text="Cruiser"
+                android:id="@+id/ship" />
+
+        </RelativeLayout>
+
+     </LinearLayout>
 
 </FrameLayout>

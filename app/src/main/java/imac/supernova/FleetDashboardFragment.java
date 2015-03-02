@@ -1,12 +1,11 @@
 package imac.supernova;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -18,7 +17,11 @@ import android.widget.TextView;
  * Use the {@link FleetDashboardFragment#//newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FleetDashboardFragment extends Fragment {
+public class FleetDashboardFragment extends Fragment implements View.OnClickListener {
+
+    private View v;
+    private TextView ship_text;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     //private static final String ARG_PARAM1 = "param1";
@@ -64,11 +67,66 @@ public class FleetDashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_fleet_fragment);
-        return textView;
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
+        v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
+
+        ship_text = (TextView) v.findViewById(R.id.ship);
+
+        // Button #1
+        Button button_cruiser = (Button) v.findViewById(R.id.button_cruiser);
+        button_cruiser.setOnClickListener(this);
+
+        // Button #2
+        Button button_bomber_1 = (Button) v.findViewById(R.id.button_bomber_1);
+        button_bomber_1.setOnClickListener(this);
+        // Button #3
+        Button button_bomber_2 = (Button) v.findViewById(R.id.button_bomber_2);
+        button_bomber_2.setOnClickListener(this);
+
+        // Button #4
+        Button button_fighter_1 = (Button) v.findViewById(R.id.button_fighter_1);
+        button_fighter_1.setOnClickListener(this);
+        // Button #5
+        Button button_fighter_2 = (Button) v.findViewById(R.id.button_fighter_2);
+        button_fighter_2.setOnClickListener(this);
+        // Button #6
+        Button button_fighter_3 = (Button) v.findViewById(R.id.button_fighter_3);
+        button_fighter_3.setOnClickListener(this);
+
+        return v;
+        /*Button button = (Button) findViewById(R.id.button_test);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        return inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_cruiser:
+                ship_text.setText("Cruiser");
+                break;
+            case R.id.button_bomber_1:
+                ship_text.setText("Bomber #1");
+                break;
+            case R.id.button_bomber_2:
+                ship_text.setText("Bomber #2");
+                break;
+            case R.id.button_fighter_1:
+                ship_text.setText("Fighter #1");
+                break;
+            case R.id.button_fighter_2:
+                ship_text.setText("Fighter #2");
+                break;
+            case R.id.button_fighter_3:
+                ship_text.setText("Fighter #3");
+                break;
+            default:
+                break;
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
