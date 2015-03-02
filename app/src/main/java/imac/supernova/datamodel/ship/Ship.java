@@ -1,5 +1,9 @@
 package imac.supernova.datamodel.ship;
 
+import imac.supernova.datamodel.AlienWreckage;
+import imac.supernova.datamodel.Asteroid;
+import imac.supernova.datamodel.Race;
+
 import imac.supernova.datamodel.Player;
 
 /**
@@ -38,6 +42,13 @@ public class Ship {
         return id;
     }
 
+    public void buyWeapon(){
+        if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installWeapon();
+        }
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -45,6 +56,13 @@ public class Ship {
     // Damage
     public int getDamage() {
         return damage;
+    }
+
+    public void buyShield(){
+        if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installShield();
+        }
     }
 
     public void setDamage(int damage) {
@@ -63,6 +81,37 @@ public class Ship {
     // Max Health
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    public void attackShip(Ship enemy){
+
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+
+        if(enemy.hasShield){
+            enemy.hasShield = false;
+            System.out.println("Bouclier détruit sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+        }
+        enemy.setHealth(enemy.getHealth() - this.damage);
+        if(enemy.health <= 0){
+            enemy.death();
+        }
+    }
+
+    public void attackAsteroid(Asteroid asteroid){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+asteroid.getClass().getSimpleName().toString());
+
+        // TODO appeler carte exploration pour remplir une nouvelle case
+        this.owner.earnCredit();
+    }
+
+    public void attackAlienWreckage(AlienWreckage wreckage){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+wreckage.getClass().getSimpleName().toString());
+
+        // TODO donner une carte alien au joueur
+        // TODO appeler carte exploration pour remplir une nouvelle case
     }
 
     public void setMaxHealth(int maxHealth) {

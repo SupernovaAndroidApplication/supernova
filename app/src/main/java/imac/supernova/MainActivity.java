@@ -24,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import imac.supernova.ARVuforia.FrameMarkers;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -173,26 +175,35 @@ public class MainActivity extends ActionBarActivity {
      */
     private void selectItem(int position) {
         Fragment fragment = null;
+        FragmentManager fragmentManager;
 
         switch (position) {
             case 0:
                 fragment = new PlayerCardFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
                 break;
             case 1:
                 fragment = new FleetDashboardFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
                 break;
             case 2:
                 fragment = new AlienTechnologiesFragment();
+                fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
                 break;
             case 3:
-                fragment = new ExplorationModeFragment();
+//                fragment = new ExplorationModeFragment();
+                Intent intent = new Intent(this, FrameMarkers.class);
+                startActivity(intent);
                 break;
             default:
                 break;
         }
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
+        //FragmentManager fragmentManager = getFragmentManager();
+        //fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);

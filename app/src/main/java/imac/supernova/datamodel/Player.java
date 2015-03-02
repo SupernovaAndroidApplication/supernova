@@ -12,23 +12,26 @@ import java.util.List;
 public class Player {
 
     String name;
-    Race race;
     ArrayList<Ship> fleet;
+    Race race;
+    int credit;
 
-    public Player(String name, Race race) {
+    public Player(String i_name, Race i_race){
         System.out.println("Création d'un joueur");
         name = new String();
-        this.fleet = new ArrayList<Ship>();
-        this.name = name;
-        this.race = race;
-        for(int i=0;i<6;i++) {
+        fleet = new ArrayList<Ship>();
+        name = i_name;
+        race = i_race;
+        for(int i=0;i<6;i++){
             Fighter f = new Fighter(this);
             this.fleet.add(f);
             System.out.println(f.toString());
+
         }
+
     }
 
-    public String printFleet() {
+    public String printFleet(){
         String s = new String();
         s += "Flotte "+ this.race.toString().toLowerCase() +" de " + this.name + " : \n";
         for (Ship element : this.fleet) {
@@ -46,12 +49,27 @@ public class Player {
         return name;
     }
 
-    public List<Ship> getFleet() {
+    public List<Ship> getFleet(){
         return this.fleet;
     }
 
     public Race getRace() {
         return race;
     }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void earnCredit(){
+        credit += 1;
+        System.out.println("Crédit: "+credit);
+    }
+
+    public void spendCredit(){
+        credit -= 1;
+        System.out.println("Crédit: "+credit);
+    }
+
 
 }
