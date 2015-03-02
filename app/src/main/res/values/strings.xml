@@ -7,7 +7,6 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
     <string-array name="titles_array">
@@ -16,7 +15,6 @@
         <item>Technologies</item>
         <item>Exploration</item>
     </string-array>
-
     <string-array name="subtitles_array">
         <item>The commandant and his race</item>
         <item>Spaceships features</item>
@@ -25,8 +23,13 @@
     </string-array>
 
     <string name="hello_player_fragment">Hello player card!</string>
-    <string name="hello_fleet_fragment">Hello fleet dashboard!</string>
+    <string name="first_ship_name">Cruiser</string>
+    <string name="first_ship_energy">3/5</string>
+    <string name="first_ship_power">3/5</string>
+    <string name="first_ship_move">3/5</string>
     <string name="hello_technologies_fragment">Hello alien technologies!</string>
     <string name="hello_exploration_fragment">Hello exploration mode!</string>
+    <string name="title_activity_exploration_mode">ExplorationModeActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

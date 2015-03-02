@@ -4,12 +4,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <RelativeLayout
+        <!-- Buttons for each ship -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:background="#ff292425">
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_cruiser"
@@ -19,46 +23,70 @@
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_bomber_1"
                 android:text="Bomber #1"
-                android:drawableRight="@drawable/action_search"
-                android:layout_below="@+id/button_cruiser" />
+                android:drawableRight="@drawable/action_search" />
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_bomber_2"
                 android:text="Bomber #2"
-                android:drawableRight="@drawable/action_search"
-                android:layout_below="@+id/button_bomber_1" />
+                android:drawableRight="@drawable/action_search" />
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_fighter_1"
                 android:text="Fighter #1"
-                android:drawableRight="@drawable/action_search"
-                android:layout_below="@+id/button_bomber_2" />
+                android:drawableRight="@drawable/action_search" />
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_fighter_2"
                 android:text="Fighter #2"
-                android:drawableRight="@drawable/action_search"
-                android:layout_below="@+id/button_fighter_1" />
+                android:drawableRight="@drawable/action_search" />
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:id="@+id/button_fighter_3"
                 android:text="Fighter #3"
-                android:drawableRight="@drawable/action_search"
-                android:layout_below="@+id/button_fighter_2" />
+                android:drawableRight="@drawable/action_search" />
+        </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
+        <!-- Ship selected features layout -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ffc6c6c6">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
-            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-                android:text="Cruiser"
-                android:id="@+id/ship" />
+            <!-- Ship name -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/ship_name"
+                android:text="@string/first_ship_name"
+                android:background="#037da6"
+                android:textColor="#fff"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:textAllCaps="true"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-        </RelativeLayout>
+            <!-- Energy units -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Energy units" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/energy_units"
+                android:text="@string/first_ship_energy" />
+
+            <!-- Power units -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Power units" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/power_units"
+                android:text="@string/first_ship_power" />
+
+            <!-- Move units -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Move units" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/move_units"
+                android:text="@string/first_ship_move" />
+        </LinearLayout>
 
      </LinearLayout>
 
