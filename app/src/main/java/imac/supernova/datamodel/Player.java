@@ -71,5 +71,4 @@ public class Player {
         System.out.println("Crédit: "+credit);
     }
 
-
 }
