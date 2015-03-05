@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.opengl.GLES10;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -27,8 +28,11 @@ import com.qualcomm.vuforia.Tool;
 import com.qualcomm.vuforia.TrackableResult;
 import com.qualcomm.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.qualcomm.vuforia.Vuforia;
+
+import imac.supernova.ARVuforia.dataobjects.bohregon.FighterObjectBohregon;
 import imac.supernova.ARVuforia.utils.CubeObject;
 import imac.supernova.ARVuforia.utils.CubeShaders;
+import imac.supernova.ARVuforia.utils.PlaneObject;
 import imac.supernova.ARVuforia.utils.SampleUtils;
 import imac.supernova.ARVuforia.utils.Texture;
 
@@ -54,13 +58,12 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     private int texSampler2DHandle = 0;
     
     // Constants:
-    static private float kLetterScale = 25.0f;
+    static private float kLetterScale = 1.0f;
     static private float kLetterTranslate = 0.0f;
 
-    private CObject cObject = new CObject();
-    private AObject aObject = new AObject();
-    private RObject rObject = new RObject();
     private CubeObject cubeObjectTest = new CubeObject();
+    private FighterObjectBohregon fighter = new FighterObjectBohregon();
+    private PlaneObject plane = new PlaneObject();
 
     public FrameMarkerRenderer(FrameMarkers activity,SampleApplicationSession session)
     {
@@ -161,7 +164,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
         {
             // Get the trackable:
             TrackableResult trackableResult = state.getTrackableResult(tIdx);
-            float[] modelViewMatrix = Tool.convertPose2GLMatrix(trackableResult.getPose()).getData();
+            float[] modelViewMatrixShip = Tool.convertPose2GLMatrix(trackableResult.getPose()).getData();
+            float[] modelViewMatrixLife = Tool.convertPose2GLMatrix(trackableResult.getPose()).getData();
             
             // Choose the texture based on the target name:
             int textureIndex = 0;
@@ -174,76 +178,109 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             textureIndex = marker.getMarkerId();
             
             assert (textureIndex < mTextures.size());
-            Texture thisTexture = mTextures.get(textureIndex);
+            Texture thisTexture = mTextures.get(1);
+            Texture lifeTexture = mTextures.get(0);
             
             // Select which model to draw:
-            Buffer vertices = null;
-            Buffer normals = null;
+            Buffer verticesShip = null;
+            Buffer normalsShip = null;
+            Buffer texCoordsShip = null;
+            int numVertObjectShip = 0;
             Buffer indices = null;
-            Buffer texCoords = null;
             int numIndices = 0;
-            
+
+            Buffer verticesLife = null;
+            Buffer normalsLife = null;
+            Buffer texCoordsLife = null;
+            int numVertObjectLife = 0;
+
             switch (marker.getMarkerId())
             {
                 case 0:
-                    vertices = cubeObjectTest.getVertices();
-                    normals = cubeObjectTest.getNormals();
-                    indices = cubeObjectTest.getIndices();
-                    texCoords = cubeObjectTest.getTexCoords();
-                    numIndices = cubeObjectTest.getNumObjectIndex();
-                    break;
-                case 1:
-                    vertices = cObject.getVertices();
-                    normals = cObject.getNormals();
-                    indices = cObject.getIndices();
-                    texCoords = cObject.getTexCoords();
-                    numIndices = cObject.getNumObjectIndex();
-                    break;
-                case 2:
-                    vertices = aObject.getVertices();
-                    normals = aObject.getNormals();
-                    indices = aObject.getIndices();
-                    texCoords = aObject.getTexCoords();
-                    numIndices = aObject.getNumObjectIndex();
+//                    vertices = cubeObjectTest.getVertices();
+//                    normals = cubeObjectTest.getNormals();
+//                    indices = cubeObjectTest.getIndices();
+//                    texCoords = cubeObjectTest.getTexCoords();
+//                    numIndices = cubeObjectTest.getNumObjectIndex();
+                    verticesShip = fighter.getVertices();
+                    normalsShip = fighter.getNormals();
+                    texCoordsShip = fighter.getTexCoords();
+                    numVertObjectShip = fighter.getNumObjectVertex();
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 default:
-                    vertices = rObject.getVertices();
-                    normals = rObject.getNormals();
-                    indices = rObject.getIndices();
-                    texCoords = rObject.getTexCoords();
-                    numIndices = rObject.getNumObjectIndex();
+                    verticesShip = fighter.getVertices();
+                    normalsShip = fighter.getNormals();
+                    texCoordsShip = fighter.getTexCoords();
+                    numVertObjectShip = fighter.getNumObjectVertex();
                     break;
             }
             
-            float[] modelViewProjection = new float[16];
-            
-            Matrix.translateM(modelViewMatrix, 0, -kLetterTranslate, -kLetterTranslate, 0.f);
-            Matrix.scaleM(modelViewMatrix, 0, kLetterScale, kLetterScale, kLetterScale);
-            Matrix.multiplyMM(modelViewProjection, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrix, 0);
-            
+            float[] modelViewProjectionShip = new float[16];
+            float[] modelViewProjectionLife = new float[16];
+
+            Matrix.translateM(modelViewMatrixShip, 0, 0, 0, 30);
+            Matrix.scaleM(modelViewMatrixShip, 0, kLetterScale, kLetterScale, kLetterScale);
+            Matrix.multiplyMM(modelViewProjectionShip, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixShip, 0);
+
+            Matrix.translateM(modelViewMatrixLife, 0, 0, 0, 25);
+            Matrix.scaleM(modelViewMatrixLife, 0, 30, 30, 30);
+            Matrix.multiplyMM(modelViewProjectionLife, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixLife, 0);
+
             GLES20.glUseProgram(shaderProgramID);
-            
-            GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, vertices);
-            GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normals);
-            GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoords);
-            
+
+            /** Ship */
+            GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesShip);
+            GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsShip);
+            GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsShip);
+            GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsShip);
+
             GLES20.glEnableVertexAttribArray(vertexHandle);
             GLES20.glEnableVertexAttribArray(normalHandle);
             GLES20.glEnableVertexAttribArray(textureCoordHandle);
-            
+
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, thisTexture.mTextureID[0]);
-            GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjection, 0);
+            GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionShip, 0);
             GLES20.glUniform1i(texSampler2DHandle, 0);
-            GLES20.glDrawElements(GLES20.GL_TRIANGLES, numIndices, GLES20.GL_UNSIGNED_SHORT, indices);
-            
+//            GLES20.glDrawElements(GLES20.GL_TRIANGLES, numIndices, GLES20.GL_UNSIGNED_SHORT, indices);
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectShip);
+
+            GLES20.glDisableVertexAttribArray(vertexHandle);
+            GLES20.glDisableVertexAttribArray(normalHandle);
+            GLES20.glDisableVertexAttribArray(textureCoordHandle);
+
+            /** Life */
+            GLES20.glEnable(GLES20.GL_BLEND);
+            GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+            GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesLife);
+            GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsLife);
+            GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsLife);
+            GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsLife);
+
+            GLES20.glEnableVertexAttribArray(vertexHandle);
+            GLES20.glEnableVertexAttribArray(normalHandle);
+            GLES20.glEnableVertexAttribArray(textureCoordHandle);
+
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, lifeTexture.mTextureID[0]);
+            GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionLife, 0);
+            GLES20.glUniform1i(texSampler2DHandle, 0);
+//            GLES20.glDrawElements(GLES20.GL_TRIANGLES, numIndices, GLES20.GL_UNSIGNED_SHORT, indices);
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectLife);
+
             GLES20.glDisableVertexAttribArray(vertexHandle);
             GLES20.glDisableVertexAttribArray(normalHandle);
             GLES20.glDisableVertexAttribArray(textureCoordHandle);
             
             SampleUtils.checkGLError("FrameMarkers render frame");
         }
-        
+
+        GLES20.glDisable(GLES20.GL_BLEND);
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         Renderer.getInstance().end();
     }
