@@ -9,10 +9,10 @@
 
         <!-- Buttons for each ship -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:background="#ff292425">
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -48,13 +48,16 @@
 
         <!-- Ship selected features layout -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="6">
 
             <!-- Ship name -->
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
                 android:id="@+id/ship_name"
                 android:text="@string/first_ship_name"
                 android:background="#037da6"
@@ -67,25 +70,125 @@
                 android:textStyle="bold" />
 
             <!-- Energy units -->
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Energy units" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:id="@+id/energy_units"
-                android:text="@string/first_ship_energy" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Energy units"
+                android:textSize="18dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#ffdadadc"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/energy_units"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#e7604a"
+                    android:text="" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/first_ship_energy"
+                    android:paddingLeft="5dp"
+                    android:textColor="#ffdadadc" />
+            </RelativeLayout>
 
             <!-- Power units -->
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Power units" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:id="@+id/power_units"
-                android:text="@string/first_ship_power" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Power units"
+                android:textSize="18dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#ffdadadc"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/power_units"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#cc477c"
+                    android:text="" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/first_ship_power"
+                    android:paddingLeft="5dp"
+                    android:textColor="#ffdadadc" />
+            </RelativeLayout>
 
             <!-- Move units -->
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Move units" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:id="@+id/move_units"
-                android:text="@string/first_ship_move" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Move units"
+                android:textSize="18dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#ffdadadc"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/move_units"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="#6271a8"
+                    android:text="" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/first_ship_move"
+                    android:paddingLeft="5dp"
+                    android:textColor="#ffdadadc" />
+            </RelativeLayout>
+
         </LinearLayout>
 
      </LinearLayout>
