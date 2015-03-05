@@ -69,13 +69,13 @@
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
-            <!-- Energy units -->
+            <!-- Health units -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Energy units"
+                android:text="Health units"
                 android:textSize="18dp" />
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:background="#ffdadadc"
                     android:text="" />
                 <TextView
-                    android:id="@+id/energy_units"
+                    android:id="@+id/health_units"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/first_ship_energy"
+                    android:text="@string/first_ship_health"
                     android:paddingLeft="5dp"
                     android:textColor="#ffdadadc" />
             </RelativeLayout>

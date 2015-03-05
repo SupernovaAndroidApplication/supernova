@@ -24,7 +24,7 @@
 
     <string name="hello_player_fragment">Hello player card!</string>
     <string name="first_ship_name">Cruiser</string>
-    <string name="first_ship_energy">3/5</string>
+    <string name="first_ship_health">3/5</string>
     <string name="first_ship_power">3/5</string>
     <string name="first_ship_move">3/5</string>
     <string name="hello_technologies_fragment">Hello alien technologies!</string>

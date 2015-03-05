@@ -1,5 +1,6 @@
 package imac.supernova;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.List;
+
+import imac.supernova.datamodel.Game;
+import imac.supernova.datamodel.ship.Ship;
 
 
 /**
@@ -24,13 +30,17 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
 
     private TextView ship_name;
 
-    private TextView energy_units;
+    private TextView health_units;
     private TextView power_units;
     private TextView move_units;
 
-    private RelativeLayout.LayoutParams params_energy;
+    private RelativeLayout.LayoutParams params_health;
     private RelativeLayout.LayoutParams params_power;
     private RelativeLayout.LayoutParams params_move;
+
+    public Game currentGame;
+    //private Player currentPlayer = game.getPlayer(0);
+    public List<Ship> playerFleet;
 
     public FleetDashboardFragment() {
         // Required empty public constructor
@@ -39,11 +49,16 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Get the current game and the current player's fleet
+        currentGame = ((MainActivity) getActivity()).game;
+        playerFleet = currentGame.getFleetOfCurrentPlayer();
+
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
         // Get textview to insert data
         ship_name = (TextView) v.findViewById(R.id.ship_name);
-        energy_units = (TextView) v.findViewById(R.id.energy_units);
+        health_units = (TextView) v.findViewById(R.id.health_units);
         power_units = (TextView) v.findViewById(R.id.power_units);
         move_units = (TextView) v.findViewById(R.id.move_units);
 
@@ -75,72 +90,42 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_cruiser:
-                ship_name.setText("Cruiser");
-                params_energy = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(0);
                 break;
             case R.id.button_bomber_1:
-                ship_name.setText("Bomber #1");
-                params_energy = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(1);
                 break;
             case R.id.button_bomber_2:
-                ship_name.setText("Bomber #2");
-                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(150, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(2);
                 break;
             case R.id.button_fighter_1:
-                ship_name.setText("Fighter #1");
-                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(3);
                 break;
             case R.id.button_fighter_2:
-                ship_name.setText("Fighter #2");
-                params_energy = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(4);
                 break;
             case R.id.button_fighter_3:
-                ship_name.setText("Fighter #3");
-                params_energy = new RelativeLayout.LayoutParams(90, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                updateDisplay(5);
                 break;
             default:
                 break;
         }
     }
 
-    // TODO
-    public void updateDisplay() {
-        /*params_energy = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-        energy_units.setLayoutParams(params_energy);
-        params_power = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+    /**
+     * Update the display of ship's data on click on buttons
+     * */
+    public void updateDisplay(int id) {
+        ship_name.setText(playerFleet.get(id).getClass().getSimpleName().toString());
+        // Health
+        params_health = new RelativeLayout.LayoutParams(playerFleet.get(id).getHealth(), RelativeLayout.LayoutParams.MATCH_PARENT);
+        health_units.setLayoutParams(params_health);
+        // Power
+        params_power = new RelativeLayout.LayoutParams(250, RelativeLayout.LayoutParams.MATCH_PARENT);
         power_units.setLayoutParams(params_power);
-        params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-        move_units.setLayoutParams(params_move);*/
+        // Move
+        params_move = new RelativeLayout.LayoutParams(250, RelativeLayout.LayoutParams.MATCH_PARENT);
+        move_units.setLayoutParams(params_move);
     }
 
 }

@@ -25,6 +25,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import imac.supernova.ARVuforia.FrameMarkers;
+import imac.supernova.datamodel.Game;
+import imac.supernova.datamodel.Player;
+import imac.supernova.datamodel.Race;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -39,6 +42,9 @@ public class MainActivity extends ActionBarActivity {
     private String[] mNavigationTitles;
     private String[] mNavigationSubtitles;
     ArrayList<NavItem> mNavItems = new ArrayList<>();
+
+    public Game game;
+    public Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,14 @@ public class MainActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+
+        // Start a new game
+        game = new Game();
+        game.addPlayer(new Player("Angéline", Race.TERRAN));
+        game.addPlayer(new Player("Clara", Race.NERENIDE));
+        game.addPlayer(new Player("Baptiste", Race.BOHREGON));
+        game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
+        currentPlayer = game.getPlayer(0); // TODO: handle game turn
     }
 
     @Override
@@ -194,16 +208,12 @@ public class MainActivity extends ActionBarActivity {
                 fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
                 break;
             case 3:
-//                fragment = new ExplorationModeFragment();
                 Intent intent = new Intent(this, FrameMarkers.class);
                 startActivity(intent);
                 break;
             default:
                 break;
         }
-
-        //FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
