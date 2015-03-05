@@ -63,7 +63,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     // Constants:
     static private float shipScale = 1.0f;
     static private float kLetterTranslate = 0.0f;
-    static private float lifeHUDScale = 30.0f;
+    static private float lifeHUDScale = 23.0f;
 
     private FighterBohregon fighterBohregon = new FighterBohregon();
     private PlaneObject plane = new PlaneObject();
@@ -155,8 +155,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
         // We must detect if background reflection is active and adjust the culling direction.
         // If the reflection is active, this means the post matrix has been reflected as well,
         // therefore standard counter clockwise face culling will result in "inside out" models.
-        GLES20.glEnable(GLES20.GL_CULL_FACE);
-        GLES20.glCullFace(GLES20.GL_BACK);
+//        GLES20.glEnable(GLES20.GL_CULL_FACE);
+//        GLES20.glCullFace(GLES20.GL_BACK);
         if (Renderer.getInstance().getVideoBackgroundConfig().getReflection() == VIDEO_BACKGROUND_REFLECTION.VIDEO_BACKGROUND_REFLECTION_ON)
             GLES20.glFrontFace(GLES20.GL_CW);  // Front camera
         else
