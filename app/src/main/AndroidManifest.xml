@@ -33,6 +33,7 @@
 
         <activity
             android:name=".ARVuforia.FrameMarkers"
+            android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
             android:theme="@style/SampleAppsTheme"
             android:launchMode="singleTask">
