@@ -7,7 +7,7 @@ import imac.supernova.ARVuforia.utils.MeshObject;
 /**
  * Created by Angecroft on 05/03/2015.
  */
-public class FighterObjectBohregon extends MeshObject
+public class FighterBohregon extends MeshObject
 {
     private Buffer mVertBuff;
     private Buffer mTexCoordBuff;
@@ -17,7 +17,7 @@ public class FighterObjectBohregon extends MeshObject
     private int verticesNumber = 0;
 
 
-    public FighterObjectBohregon()
+    public FighterBohregon()
     {
         setVerts();
         setTexCoords();

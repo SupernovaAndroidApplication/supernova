@@ -74,12 +74,8 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
     // for rendering.
     private void loadTextures()
     {
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_fighter_texture.jpg", getAssets()));
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/life_2.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_fighter_texture.jpg",getAssets()));
-//        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/testTextureCube.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_C.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_A.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_R.png",getAssets()));
     }
 
     // Called when the activity will start interacting with the user.

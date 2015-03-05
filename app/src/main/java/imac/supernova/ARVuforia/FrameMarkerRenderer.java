@@ -29,9 +29,9 @@ import com.qualcomm.vuforia.TrackableResult;
 import com.qualcomm.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.qualcomm.vuforia.Vuforia;
 
-import imac.supernova.ARVuforia.dataobjects.bohregon.FighterObjectBohregon;
-import imac.supernova.ARVuforia.utils.CubeObject;
+import imac.supernova.ARVuforia.dataobjects.bohregon.FighterBohregon;
 import imac.supernova.ARVuforia.utils.CubeShaders;
+import imac.supernova.ARVuforia.utils.ObjectType;
 import imac.supernova.ARVuforia.utils.PlaneObject;
 import imac.supernova.ARVuforia.utils.SampleUtils;
 import imac.supernova.ARVuforia.utils.Texture;
@@ -48,6 +48,9 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     public boolean mIsActive = false;
     
     private Vector<Texture> mTextures;
+
+    private double prevTime;
+    private float rotateAngle;
     
     // OpenGL ES 2.0 specific:
     private int shaderProgramID = 0;
@@ -58,11 +61,11 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     private int texSampler2DHandle = 0;
     
     // Constants:
-    static private float kLetterScale = 1.0f;
+    static private float shipScale = 1.0f;
     static private float kLetterTranslate = 0.0f;
+    static private float lifeHUDScale = 30.0f;
 
-    private CubeObject cubeObjectTest = new CubeObject();
-    private FighterObjectBohregon fighter = new FighterObjectBohregon();
+    private FighterBohregon fighterBohregon = new FighterBohregon();
     private PlaneObject plane = new PlaneObject();
 
     public FrameMarkerRenderer(FrameMarkers activity,SampleApplicationSession session)
@@ -174,20 +177,19 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             assert (trackableResult.getType() == MarkerTracker.getClassType());
             MarkerResult markerResult = (MarkerResult) (trackableResult);
             Marker marker = (Marker) markerResult.getTrackable();
-            
+
+            // TODO retrouver facilement un marker avec un modele
             textureIndex = marker.getMarkerId();
             
             assert (textureIndex < mTextures.size());
-            Texture thisTexture = mTextures.get(1);
-            Texture lifeTexture = mTextures.get(0);
+            Texture shipTexture;
+            Texture lifeTexture;
             
             // Select which model to draw:
             Buffer verticesShip = null;
             Buffer normalsShip = null;
             Buffer texCoordsShip = null;
             int numVertObjectShip = 0;
-            Buffer indices = null;
-            int numIndices = 0;
 
             Buffer verticesLife = null;
             Buffer normalsLife = null;
@@ -196,26 +198,81 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
 
             switch (marker.getMarkerId())
             {
-                case 0:
-//                    vertices = cubeObjectTest.getVertices();
-//                    normals = cubeObjectTest.getNormals();
-//                    indices = cubeObjectTest.getIndices();
-//                    texCoords = cubeObjectTest.getTexCoords();
-//                    numIndices = cubeObjectTest.getNumObjectIndex();
-                    verticesShip = fighter.getVertices();
-                    normalsShip = fighter.getNormals();
-                    texCoordsShip = fighter.getTexCoords();
-                    numVertObjectShip = fighter.getNumObjectVertex();
+                case ObjectType.BOHREGON_FIGHTER:
+                    shipTexture =  mTextures.get(ObjectType.BOHREGON_FIGHTER);
+                    lifeTexture = mTextures.get(1); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+
+                    verticesShip = fighterBohregon.getVertices();
+                    normalsShip = fighterBohregon.getNormals();
+                    texCoordsShip = fighterBohregon.getTexCoords();
+                    numVertObjectShip = fighterBohregon.getNumObjectVertex();
+
                     verticesLife = plane.getVertices();
                     normalsLife = plane.getNormals();
                     texCoordsLife = plane.getTexCoords();
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
+                case ObjectType.BOHREGONG_CRUISER:
+                    shipTexture =  mTextures.get(ObjectType.BOHREGONG_CRUISER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.BOHREGON_BOMBER:
+                    shipTexture =  mTextures.get(ObjectType.BOHREGON_BOMBER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.TERRAN_FIGHTER:
+                    shipTexture =  mTextures.get(ObjectType.TERRAN_FIGHTER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.TERRAN_CRUISER:
+                    shipTexture =  mTextures.get(ObjectType.TERRAN_CRUISER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.TERRAN_BOMBER:
+                    shipTexture =  mTextures.get(ObjectType.TERRAN_BOMBER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.NERENIDE_FIGHTER:
+                    shipTexture =  mTextures.get(ObjectType.NERENIDE_FIGHTER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.NERENIDE_CRUISER:
+                    shipTexture =  mTextures.get(ObjectType.NERENIDE_CRUISER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.NERENIDE_BOMBER:
+                    shipTexture =  mTextures.get(ObjectType.NERENIDE_BOMBER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.YTTRIKT_FIGHTER:
+                    shipTexture =  mTextures.get(ObjectType.YTTRIKT_FIGHTER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.YTTRIKT_CRUISER:
+                    shipTexture =  mTextures.get(ObjectType.YTTRIKT_CRUISER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.YTTRIKT_BOMBER:
+                    shipTexture =  mTextures.get(ObjectType.YTTRIKT_BOMBER);
+                    lifeTexture = mTextures.get(1);
+                    break;
+                case ObjectType.ASTEROID:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID);
+                    lifeTexture = mTextures.get(1);
+                    break;
                 default:
-                    verticesShip = fighter.getVertices();
-                    normalsShip = fighter.getNormals();
-                    texCoordsShip = fighter.getTexCoords();
-                    numVertObjectShip = fighter.getNumObjectVertex();
+                    shipTexture =  mTextures.get(0);
+                    lifeTexture = mTextures.get(1);
+
+                    verticesShip = fighterBohregon.getVertices();
+                    normalsShip = fighterBohregon.getNormals();
+                    texCoordsShip = fighterBohregon.getTexCoords();
+                    numVertObjectShip = fighterBohregon.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
             }
             
@@ -223,12 +280,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             float[] modelViewProjectionLife = new float[16];
 
             Matrix.translateM(modelViewMatrixShip, 0, 0, 0, 30);
-            Matrix.scaleM(modelViewMatrixShip, 0, kLetterScale, kLetterScale, kLetterScale);
+            Matrix.scaleM(modelViewMatrixShip, 0, shipScale, shipScale, shipScale);
             Matrix.multiplyMM(modelViewProjectionShip, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixShip, 0);
-
-            Matrix.translateM(modelViewMatrixLife, 0, 0, 0, 25);
-            Matrix.scaleM(modelViewMatrixLife, 0, 30, 30, 30);
-            Matrix.multiplyMM(modelViewProjectionLife, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixLife, 0);
 
             GLES20.glUseProgram(shaderProgramID);
 
@@ -243,10 +296,9 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             GLES20.glEnableVertexAttribArray(textureCoordHandle);
 
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, thisTexture.mTextureID[0]);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, shipTexture.mTextureID[0]);
             GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionShip, 0);
             GLES20.glUniform1i(texSampler2DHandle, 0);
-//            GLES20.glDrawElements(GLES20.GL_TRIANGLES, numIndices, GLES20.GL_UNSIGNED_SHORT, indices);
             GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectShip);
 
             GLES20.glDisableVertexAttribArray(vertexHandle);
@@ -254,33 +306,42 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             GLES20.glDisableVertexAttribArray(textureCoordHandle);
 
             /** Life */
-            GLES20.glEnable(GLES20.GL_BLEND);
-            GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+            if(marker.getMarkerId() != ObjectType.ASTEROID)
+            {
+                GLES20.glEnable(GLES20.GL_BLEND);
+                GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
-            GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesLife);
-            GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsLife);
-            GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsLife);
-            GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsLife);
+                animateLifeHUD(modelViewMatrixLife);
 
-            GLES20.glEnableVertexAttribArray(vertexHandle);
-            GLES20.glEnableVertexAttribArray(normalHandle);
-            GLES20.glEnableVertexAttribArray(textureCoordHandle);
+                Matrix.translateM(modelViewMatrixLife, 0, 0, 0, 25);
+//                Matrix.rotateM(modelViewMatrixLife, 0, 0, 0, 0, 0);
+                Matrix.scaleM(modelViewMatrixLife, 0, lifeHUDScale, lifeHUDScale, lifeHUDScale);
+                Matrix.multiplyMM(modelViewProjectionLife, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixLife, 0);
 
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, lifeTexture.mTextureID[0]);
-            GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionLife, 0);
-            GLES20.glUniform1i(texSampler2DHandle, 0);
-//            GLES20.glDrawElements(GLES20.GL_TRIANGLES, numIndices, GLES20.GL_UNSIGNED_SHORT, indices);
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectLife);
+                GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesLife);
+                GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsLife);
+                GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsLife);
+                GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsLife);
 
-            GLES20.glDisableVertexAttribArray(vertexHandle);
-            GLES20.glDisableVertexAttribArray(normalHandle);
-            GLES20.glDisableVertexAttribArray(textureCoordHandle);
-            
+                GLES20.glEnableVertexAttribArray(vertexHandle);
+                GLES20.glEnableVertexAttribArray(normalHandle);
+                GLES20.glEnableVertexAttribArray(textureCoordHandle);
+
+                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, lifeTexture.mTextureID[0]);
+                GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionLife, 0);
+                GLES20.glUniform1i(texSampler2DHandle, 0);
+                GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectLife);
+
+                GLES20.glDisableVertexAttribArray(vertexHandle);
+                GLES20.glDisableVertexAttribArray(normalHandle);
+                GLES20.glDisableVertexAttribArray(textureCoordHandle);
+
+                GLES20.glDisable(GLES20.GL_BLEND);
+            }
             SampleUtils.checkGLError("FrameMarkers render frame");
         }
 
-        GLES20.glDisable(GLES20.GL_BLEND);
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         Renderer.getInstance().end();
     }
@@ -288,5 +349,19 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     public void setTextures(Vector<Texture> textures)
     {
         mTextures = textures;
+    }
+
+    private void animateLifeHUD(float[] modelViewMatrix)
+    {
+        double time = System.currentTimeMillis(); // Get real time difference
+        float dt = (float) (time - prevTime) / 1000; // from frame to frame
+
+        rotateAngle += dt * 0.25f * 180.0f / 3.1415f; // Animate angle based on time
+        rotateAngle %= 360;
+        Log.d(LOGTAG, "Delta animation time: " + rotateAngle);
+
+        Matrix.rotateM(modelViewMatrix, 0, rotateAngle, 0.0f, 0.0f, 1.0f);
+
+        prevTime = time;
     }
 }
