@@ -50,10 +50,6 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Get the current game and the current player's fleet
-        currentGame = ((MainActivity) getActivity()).game;
-        playerFleet = currentGame.getFleetOfCurrentPlayer();
-
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
         // Get textview to insert data
@@ -83,6 +79,13 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
         Button button_fighter_3 = (Button) v.findViewById(R.id.button_fighter_3);
         button_fighter_3.setOnClickListener(this);
 
+        // Get the current game and the current player's fleet
+        currentGame = ((MainActivity) getActivity()).game;
+        playerFleet = currentGame.getFleetOfCurrentPlayer();
+        // Init the display on first ship
+        ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString());
+        updateFeaturesDisplay(0);
+
         return v;
     }
 
@@ -90,22 +93,28 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_cruiser:
-                updateDisplay(0);
+                ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString());
+                updateFeaturesDisplay(0);
                 break;
             case R.id.button_bomber_1:
-                updateDisplay(1);
+                ship_name.setText(playerFleet.get(1).getClass().getSimpleName().toString() + " #1");
+                updateFeaturesDisplay(1);
                 break;
             case R.id.button_bomber_2:
-                updateDisplay(2);
+                ship_name.setText(playerFleet.get(2).getClass().getSimpleName().toString() + " #2");
+                updateFeaturesDisplay(2);
                 break;
             case R.id.button_fighter_1:
-                updateDisplay(3);
+                ship_name.setText(playerFleet.get(3).getClass().getSimpleName().toString() + " #1");
+                updateFeaturesDisplay(3);
                 break;
             case R.id.button_fighter_2:
-                updateDisplay(4);
+                ship_name.setText(playerFleet.get(4).getClass().getSimpleName().toString() + " #2");
+                updateFeaturesDisplay(4);
                 break;
             case R.id.button_fighter_3:
-                updateDisplay(5);
+                ship_name.setText(playerFleet.get(5).getClass().getSimpleName().toString() + " #3");
+                updateFeaturesDisplay(5);
                 break;
             default:
                 break;
@@ -114,18 +123,25 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
 
     /**
      * Update the display of ship's data on click on buttons
-     * */
-    public void updateDisplay(int id) {
-        ship_name.setText(playerFleet.get(id).getClass().getSimpleName().toString());
+     */
+    public void updateFeaturesDisplay(int id) {
         // Health
-        params_health = new RelativeLayout.LayoutParams(playerFleet.get(id).getHealth(), RelativeLayout.LayoutParams.MATCH_PARENT);
+        params_health = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getHealth()*50), RelativeLayout.LayoutParams.MATCH_PARENT);
         health_units.setLayoutParams(params_health);
         // Power
-        params_power = new RelativeLayout.LayoutParams(250, RelativeLayout.LayoutParams.MATCH_PARENT);
+        params_power = new RelativeLayout.LayoutParams(convertToDP(250), RelativeLayout.LayoutParams.MATCH_PARENT);
         power_units.setLayoutParams(params_power);
         // Move
-        params_move = new RelativeLayout.LayoutParams(250, RelativeLayout.LayoutParams.MATCH_PARENT);
+        params_move = new RelativeLayout.LayoutParams(convertToDP(250), RelativeLayout.LayoutParams.MATCH_PARENT);
         move_units.setLayoutParams(params_move);
+    }
+
+    /**
+     * Convert pixels to dp
+     */
+    public int convertToDP(int pixels) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (pixels * scale + 0.5f);
     }
 
 }

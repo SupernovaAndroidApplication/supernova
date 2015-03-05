@@ -9,8 +9,7 @@ public class Fighter extends Ship {
 
     public Fighter(Player owner){
         super(owner);
-        //setMaxHealth(2);
-        setMaxHealth(100); // 1 = 50 and 5 = 250
+        setMaxHealth(2); // 1 = 100 and 2 = 150
         setHealth(getMaxHealth());
         setMaxMove(5);
         setDamage(1);
