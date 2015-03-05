@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Supernova.iml" filepath="$PROJECT_DIR$/Supernova.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vuforia/Vuforia.iml" filepath="$PROJECT_DIR$/Vuforia/Vuforia.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/supernova.iml" filepath="$PROJECT_DIR$/supernova.iml" />
+      <module fileurl="file://$PROJECT_DIR$/armeabi/armeabi.iml" filepath="$PROJECT_DIR$/armeabi/armeabi.iml" />
     </modules>
   </component>
 </project>
