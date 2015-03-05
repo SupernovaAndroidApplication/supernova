@@ -30,12 +30,15 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
 
     private TextView ship_name;
 
+    private TextView health_bar;
     private TextView health_units;
-    private TextView power_units;
+    private TextView damage_bar;
+    private TextView damage_units;
+    private TextView move_bar;
     private TextView move_units;
 
     private RelativeLayout.LayoutParams params_health;
-    private RelativeLayout.LayoutParams params_power;
+    private RelativeLayout.LayoutParams params_damage;
     private RelativeLayout.LayoutParams params_move;
 
     public Game currentGame;
@@ -54,8 +57,11 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
         v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
         // Get textview to insert data
         ship_name = (TextView) v.findViewById(R.id.ship_name);
+        health_bar = (TextView) v.findViewById(R.id.health_bar);
         health_units = (TextView) v.findViewById(R.id.health_units);
-        power_units = (TextView) v.findViewById(R.id.power_units);
+        damage_bar = (TextView) v.findViewById(R.id.damage_bar);
+        damage_units = (TextView) v.findViewById(R.id.damage_units);
+        move_bar = (TextView) v.findViewById(R.id.move_bar);
         move_units = (TextView) v.findViewById(R.id.move_units);
 
         // Button #1
@@ -127,13 +133,16 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     public void updateFeaturesDisplay(int id) {
         // Health
         params_health = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getHealth()*50), RelativeLayout.LayoutParams.MATCH_PARENT);
-        health_units.setLayoutParams(params_health);
-        // Power
-        params_power = new RelativeLayout.LayoutParams(convertToDP(250), RelativeLayout.LayoutParams.MATCH_PARENT);
-        power_units.setLayoutParams(params_power);
+        health_bar.setLayoutParams(params_health);
+        health_units.setText(playerFleet.get(id).getHealth()+"/"+playerFleet.get(id).getMaxHealth());
+        // Damage
+        params_damage = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getDamage()*150), RelativeLayout.LayoutParams.MATCH_PARENT);
+        damage_bar.setLayoutParams(params_damage);
+        damage_units.setText(playerFleet.get(id).getDamage()+"/"+playerFleet.get(id).getMaxDamage());
         // Move
-        params_move = new RelativeLayout.LayoutParams(convertToDP(250), RelativeLayout.LayoutParams.MATCH_PARENT);
-        move_units.setLayoutParams(params_move);
+        params_move = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getMaxMove()*60), RelativeLayout.LayoutParams.MATCH_PARENT);
+        move_bar.setLayoutParams(params_move);
+        move_units.setText(playerFleet.get(id).getMove()+"/"+playerFleet.get(id).getMaxMove());
     }
 
     /**

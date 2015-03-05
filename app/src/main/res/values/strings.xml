@@ -23,12 +23,7 @@
     </string-array>
 
     <string name="hello_player_fragment">Hello player card!</string>
-    <string name="first_ship_name">Cruiser</string>
-    <string name="first_ship_health">3/5</string>
-    <string name="first_ship_power">3/5</string>
-    <string name="first_ship_move">3/5</string>
     <string name="hello_technologies_fragment">Hello alien technologies!</string>
-    <string name="hello_exploration_fragment">Hello exploration mode!</string>
     <string name="title_activity_exploration_mode">ExplorationModeActivity</string>
     <string name="hello_world">Hello world!</string>
 

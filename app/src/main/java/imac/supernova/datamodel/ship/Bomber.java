@@ -11,8 +11,10 @@ public class Bomber extends Ship {
         super(owner);
         setMaxHealth(3); // 1 = 50 and 3 = 300
         setHealth(getMaxHealth());
-        setMaxMove(3);
-        setDamage(2);
+        setMaxDamage(2); // 1 = 150 and 2 = 300
+        setDamage(getMaxDamage());
+        setMaxMove(3); // 1 = 60 and 3 = 180
+        setMove(getMaxMove());
         setRange(1);
     }
 }

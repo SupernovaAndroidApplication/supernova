@@ -18,33 +18,41 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="2">
-
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_cruiser"
                     android:text="Cruiser"
                     android:drawableRight="@drawable/action_search" />
-
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_bomber_1"
                     android:text="Bomber #1"
                     android:drawableRight="@drawable/action_search" />
 
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_bomber_2"
                     android:text="Bomber #2"
                     android:drawableRight="@drawable/action_search" />
-
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_fighter_1"
                     android:text="Fighter #1"
                     android:drawableRight="@drawable/action_search" />
 
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_fighter_2"
                     android:text="Fighter #2"
                     android:drawableRight="@drawable/action_search" />
-
-                <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/button_fighter_3"
                     android:text="Fighter #3"
                     android:drawableRight="@drawable/action_search" />
@@ -52,149 +60,186 @@
             </ScrollView>
 
         <!-- Ship selected features layout -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="6">
+            android:layout_height="match_parent">
 
-            <!-- Ship name -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:id="@+id/ship_name"
-                android:text="@string/first_ship_name"
-                android:background="#037da6"
-                android:textColor="#fff"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="30dp"
-                android:textAllCaps="true"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="6">
 
-            <!-- Health units -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="5dp"
-                android:text="Health units"
-                android:textSize="18dp" />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="20dp">
+                <!-- Ship name -->
                 <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#c8c8ca"
-                    android:text="" />
-                <TextView
-                    android:id="@+id/health_units"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#e7604a"
-                    android:text="" />
-                <!--<TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/ship_name"
                     android:text=""
-                    android:paddingLeft="5dp"
-                    android:textColor="#ffdadadc" />-->
-            </RelativeLayout>
+                    android:background="#037da6"
+                    android:textColor="#fff"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:textAllCaps="true"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <!-- Power units -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="5dp"
-                android:text="Power units"
-                android:textSize="18dp" />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="20dp">
+                <!-- Health units -->
                 <TextView
-                    android:layout_width="250dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#ffdadadc"
-                    android:text="" />
-                <TextView
-                    android:id="@+id/power_units"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#cc477c"
-                    android:text="" />
-               <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/first_ship_power"
-                    android:paddingLeft="5dp"
-                    android:textColor="#ffdadadc" />-->
-            </RelativeLayout>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Health"
+                    android:textSize="16dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#c8c8ca"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/health_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#e7604a"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/health_units"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentLeft="true"
+                        android:text=""
+                        android:paddingLeft="5dp"
+                        android:textColor="#fff" />
+                    <Button
+                        android:layout_width="90dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Buy a shield"
+                        android:textColor="#fff"
+                        android:textSize="12dp"
+                        android:background="#e7604a"
+                        style="?android:attr/borderlessButtonStyle" />
+                </RelativeLayout>
 
-            <!-- Move units -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="5dp"
-                android:text="Move units"
-                android:textSize="18dp" />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="20dp">
+                <!-- Damage units -->
                 <TextView
-                    android:layout_width="250dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#ffdadadc"
-                    android:text="" />
-                <TextView
-                    android:id="@+id/move_units"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:background="#6271a8"
-                    android:text="" />
-                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/first_ship_move"
-                    android:paddingLeft="5dp"
-                    android:textColor="#ffdadadc" />-->
-            </RelativeLayout>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Power damage"
+                    android:textSize="16dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#c8c8ca"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/damage_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#cc477c"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/damage_units"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentLeft="true"
+                        android:text=""
+                        android:paddingLeft="5dp"
+                        android:textColor="#fff" />
+                    <Button
+                        android:layout_width="90dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Buy a weapon"
+                        android:textColor="#fff"
+                        android:textSize="12dp"
+                        android:background="#cc477c"
+                        style="?android:attr/borderlessButtonStyle" />
+                </RelativeLayout>
 
-        </LinearLayout>
+                <!-- Move units -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Move units"
+                    android:textSize="16dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#c8c8ca"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/move_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="#6271a8"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/move_units"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentLeft="true"
+                        android:text=""
+                        android:paddingLeft="5dp"
+                        android:textColor="#fff" />
+                </RelativeLayout>
+
+                <!-- Tips -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="Tips: you can use one of your alien technology card to improve health, power or move capacities of this spaceship." />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

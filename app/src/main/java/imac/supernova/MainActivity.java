@@ -120,7 +120,9 @@ public class MainActivity extends ActionBarActivity {
         game.addPlayer(new Player("Clara", Race.NERENIDE));
         game.addPlayer(new Player("Baptiste", Race.BOHREGON));
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
-        currentPlayer = game.getPlayer(0); // TODO: handle game turn
+        currentPlayer = game.getPlayer(0);
+        // TODO: handle game turn
+        // TODO: begin the game (register player name, etc.)
     }
 
     @Override

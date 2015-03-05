@@ -11,8 +11,10 @@ public class Fighter extends Ship {
         super(owner);
         setMaxHealth(2); // 1 = 100 and 2 = 150
         setHealth(getMaxHealth());
-        setMaxMove(5);
-        setDamage(1);
+        setMaxDamage(1); // 1 = 150 and 2 = 300
+        setDamage(getMaxDamage());
+        setMaxMove(5); // 1 = 60 and 5 = 300
+        setMove(getMaxMove());
         setRange(1);
     }
 }
