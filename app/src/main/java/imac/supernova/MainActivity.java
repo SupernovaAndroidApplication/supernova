@@ -43,6 +43,9 @@ public class MainActivity extends ActionBarActivity {
     private String[] mNavigationSubtitles;
     ArrayList<NavItem> mNavItems = new ArrayList<>();
 
+    private TextView username;
+    private TextView race;
+
     public Game game;
     public Player currentPlayer;
 
@@ -123,6 +126,12 @@ public class MainActivity extends ActionBarActivity {
         currentPlayer = game.getPlayer(0);
         // TODO: handle game turn
         // TODO: begin the game (register player name, etc.)
+
+        // Player infos
+        username = (TextView) findViewById(R.id.username);
+        username.setText(currentPlayer.getName());
+        race = (TextView) findViewById(R.id.race);
+        race.setText(currentPlayer.getRace().toString());
     }
 
     @Override

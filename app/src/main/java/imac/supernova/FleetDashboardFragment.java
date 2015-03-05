@@ -1,6 +1,5 @@
 package imac.supernova;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     private View v;
 
     private TextView ship_name;
-
     private TextView health_bar;
     private TextView health_units;
     private TextView damage_bar;
@@ -42,7 +40,6 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     private RelativeLayout.LayoutParams params_move;
 
     public Game currentGame;
-    //private Player currentPlayer = game.getPlayer(0);
     public List<Ship> playerFleet;
 
     public FleetDashboardFragment() {
