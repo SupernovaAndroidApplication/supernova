@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -20,7 +22,16 @@ import android.widget.TextView;
 public class FleetDashboardFragment extends Fragment implements View.OnClickListener {
 
     private View v;
-    private TextView ship_text;
+
+    private TextView ship_name;
+
+    private TextView energy_units;
+    private TextView power_units;
+    private TextView move_units;
+
+    private RelativeLayout.LayoutParams params_energy;
+    private RelativeLayout.LayoutParams params_power;
+    private RelativeLayout.LayoutParams params_move;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,8 +80,11 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
-
-        ship_text = (TextView) v.findViewById(R.id.ship);
+        // Get textview to insert data
+        ship_name = (TextView) v.findViewById(R.id.ship_name);
+        energy_units = (TextView) v.findViewById(R.id.energy_units);
+        power_units = (TextView) v.findViewById(R.id.power_units);
+        move_units = (TextView) v.findViewById(R.id.move_units);
 
         // Button #1
         Button button_cruiser = (Button) v.findViewById(R.id.button_cruiser);
@@ -107,22 +121,58 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_cruiser:
-                ship_text.setText("Cruiser");
+                ship_name.setText("Cruiser");
+                params_energy = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             case R.id.button_bomber_1:
-                ship_text.setText("Bomber #1");
+                ship_name.setText("Bomber #1");
+                params_energy = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             case R.id.button_bomber_2:
-                ship_text.setText("Bomber #2");
+                ship_name.setText("Bomber #2");
+                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(150, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             case R.id.button_fighter_1:
-                ship_text.setText("Fighter #1");
+                ship_name.setText("Fighter #1");
+                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             case R.id.button_fighter_2:
-                ship_text.setText("Fighter #2");
+                ship_name.setText("Fighter #2");
+                params_energy = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             case R.id.button_fighter_3:
-                ship_text.setText("Fighter #3");
+                ship_name.setText("Fighter #3");
+                params_energy = new RelativeLayout.LayoutParams(90, RelativeLayout.LayoutParams.MATCH_PARENT);
+                energy_units.setLayoutParams(params_energy);
+                params_power = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
+                power_units.setLayoutParams(params_power);
+                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
+                move_units.setLayoutParams(params_move);
                 break;
             default:
                 break;

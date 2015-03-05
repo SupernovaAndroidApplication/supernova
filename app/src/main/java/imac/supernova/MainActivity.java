@@ -1,5 +1,6 @@
 package imac.supernova;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
