@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
         currentPlayer = game.getPlayer(0); // TODO: handle game turn
         System.out.println("COUCOU C'EST CLARA");
-        AlienTechnology alienweapon = new AlienWeapon();
+        AlienTechnology alienweapon = new AlienWeapon(game.getPlayer(0));
         AlienWreckage aw = new AlienWreckage("ccord", alienweapon);
 
         System.out.println("ALIENTECHNO" + aw.alienTechnology.toString());
