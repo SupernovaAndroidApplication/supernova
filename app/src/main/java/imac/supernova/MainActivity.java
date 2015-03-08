@@ -25,6 +25,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import imac.supernova.ARVuforia.FrameMarkers;
+import imac.supernova.datamodel.AlienTechnology;
+import imac.supernova.datamodel.AlienWreckage;
+import imac.supernova.datamodel.ExplorationCards;
 import imac.supernova.datamodel.Game;
 import imac.supernova.datamodel.Player;
 import imac.supernova.datamodel.Race;
@@ -121,6 +124,18 @@ public class MainActivity extends ActionBarActivity {
         game.addPlayer(new Player("Baptiste", Race.BOHREGON));
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
         currentPlayer = game.getPlayer(0); // TODO: handle game turn
+        System.out.println("COUCOU C'EST CLARA");
+        AlienWreckage aw = new AlienWreckage("ccord", AlienTechnology.AlienRegenerator);
+
+        System.out.println("ALIENTECHNO" + aw.alienTechnology.toString());
+        aw.alienTechnology.useAlienTechnology();
+
+        ExplorationCards exc = new ExplorationCards();
+        System.out.println("NB REMAINING SPACEOBJECTS" + exc.getRemainingSpaceObjects().size());
+        System.out.println("REMAINING SPACEOBJECTS" + exc.remainingGameObjectsToString());
+
+       /* System.out.println("NB INGAME SPACEOBJECTS" + exc.getInGameSpaceObjects().size());
+        System.out.println("INGAME SPACEOBJECTS" + exc.inGameSpaceObjectsToString());*/
     }
 
     @Override

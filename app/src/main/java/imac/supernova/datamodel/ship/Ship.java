@@ -106,12 +106,14 @@ public class Ship {
         this.owner.earnCredit();
     }
 
+
     public void attackAlienWreckage(AlienWreckage wreckage){
         System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
                 +" sur le "+wreckage.getClass().getSimpleName().toString());
 
         // TODO donner une carte alien au joueur
-        // TODO appeler carte exploration pour remplir une nouvelle case
+        this.owner.getAlienCards().add(wreckage.alienTechnology);
+
     }
 
     public void setMaxHealth(int maxHealth) {

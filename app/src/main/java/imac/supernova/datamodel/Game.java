@@ -15,11 +15,13 @@ public class Game {
     ArrayList<Player> players;
     int lap;
     int currentPlayer;
+    ExplorationCards explorationCards;
 
     public Game() {
         players = new ArrayList<Player>();
         lap = 0;
         currentPlayer = 0;
+        explorationCards = new ExplorationCards();
     }
 
     public void addPlayer(Player player) {
@@ -52,6 +54,7 @@ public class Game {
             System.out.println("attaque d'une epave alien");
             AlienWreckage alienWreckage = (AlienWreckage) object;
             shipSelected.attackAlienWreckage(alienWreckage);
+            explorationCards.drawACard();
         }
     }
 

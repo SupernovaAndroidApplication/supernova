@@ -9,4 +9,6 @@ public class SpaceObject {
     public SpaceObject(String coordinates){
         this.coordinates = coordinates;
     }
+
+
 }

@@ -15,6 +15,7 @@ public class Player {
 
     String name;
     ArrayList<Ship> fleet;
+    ArrayList<AlienTechnology> alienCards;
     Race race;
     int credit;
 
@@ -36,6 +37,9 @@ public class Player {
             this.fleet.add(f);
             System.out.println(f.toString());
         }*/
+
+        alienCards = new ArrayList<AlienTechnology>();
+
     }
 
     public String printFleet(){
@@ -58,6 +62,10 @@ public class Player {
 
     public List<Ship> getFleet(){
         return this.fleet;
+    }
+
+    public ArrayList<AlienTechnology> getAlienCards() {
+        return alienCards;
     }
 
     public Race getRace() {

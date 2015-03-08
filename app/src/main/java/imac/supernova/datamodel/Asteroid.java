@@ -10,4 +10,8 @@ public class Asteroid extends SpaceObject {
     public Asteroid(String coordinates) {
         super(coordinates);
     }
+
+    public String toString(){
+        return this.getClass().getName() + "Coord : " + this.coordinates;
+    }
 }
