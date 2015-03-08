@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class Game {
 
+    Sun sun;
     ArrayList<Player> players;
     int lap;
     int currentPlayer;
     ExplorationCards explorationCards;
 
     public Game() {
+        sun = new Sun(10);
         players = new ArrayList<Player>();
         lap = 0;
         currentPlayer = 0;
@@ -43,7 +45,7 @@ public class Game {
         if(object instanceof Ship){
             System.out.println("attaque d'un vaisseau");
             Ship enemy = (Ship) object;
-            shipSelected.attackShip(enemy);
+            shipSelected.attackShip(enemy, sun);
         }
         else if(object instanceof Asteroid){
             System.out.println("attaque d'un asteroid");
@@ -56,7 +58,14 @@ public class Game {
             shipSelected.attackAlienWreckage(alienWreckage);
             explorationCards.drawACard();
         }
+        else if(object instanceof Sun){
+            System.out.println("Attaque de la Supernova");
+            Sun sun = (Sun) object;
+            shipSelected.attackSupernova(sun);
+        }
     }
+
+
 
     public List<Ship> getFleetOfCurrentPlayer(){
         return players.get(currentPlayer).getFleet();

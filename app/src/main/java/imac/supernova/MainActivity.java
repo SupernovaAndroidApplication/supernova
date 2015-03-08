@@ -1,6 +1,5 @@
 package imac.supernova;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -25,7 +24,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import imac.supernova.ARVuforia.FrameMarkers;
-import imac.supernova.datamodel.AlienTechnology;
+import imac.supernova.datamodel.AlienTechnology.AlienTechnology;
+import imac.supernova.datamodel.AlienTechnology.AlienWeapon;
 import imac.supernova.datamodel.AlienWreckage;
 import imac.supernova.datamodel.ExplorationCards;
 import imac.supernova.datamodel.Game;
@@ -125,10 +125,16 @@ public class MainActivity extends ActionBarActivity {
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
         currentPlayer = game.getPlayer(0); // TODO: handle game turn
         System.out.println("COUCOU C'EST CLARA");
-        AlienWreckage aw = new AlienWreckage("ccord", AlienTechnology.AlienRegenerator);
+        AlienTechnology alienweapon = new AlienWeapon();
+        AlienWreckage aw = new AlienWreckage("ccord", alienweapon);
 
         System.out.println("ALIENTECHNO" + aw.alienTechnology.toString());
-        aw.alienTechnology.useAlienTechnology();
+
+        if(aw.alienTechnology instanceof AlienWeapon) {
+            AlienWeapon alienWeapon = (AlienWeapon) (aw.alienTechnology);
+            alienWeapon.useAlienTechnology(game.getPlayer(0).getFleet().get(0));
+        }
+
 
         ExplorationCards exc = new ExplorationCards();
         System.out.println("NB REMAINING SPACEOBJECTS" + exc.getRemainingSpaceObjects().size());

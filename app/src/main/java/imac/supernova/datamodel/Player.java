@@ -1,5 +1,6 @@
 package imac.supernova.datamodel;
 
+import imac.supernova.datamodel.AlienTechnology.AlienTechnology;
 import imac.supernova.datamodel.ship.Bomber;
 import imac.supernova.datamodel.ship.Cruiser;
 import imac.supernova.datamodel.ship.Fighter;
@@ -85,5 +86,6 @@ public class Player {
         credit -= 1;
         System.out.println("Crédit: "+credit);
     }
+
 
 }

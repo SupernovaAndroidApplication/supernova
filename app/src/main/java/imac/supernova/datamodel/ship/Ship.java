@@ -5,6 +5,7 @@ import imac.supernova.datamodel.Asteroid;
 import imac.supernova.datamodel.Race;
 
 import imac.supernova.datamodel.Player;
+import imac.supernova.datamodel.Sun;
 
 /**
  * Created by Clara on 05/02/2015.
@@ -83,7 +84,7 @@ public class Ship {
         return maxHealth;
     }
 
-    public void attackShip(Ship enemy){
+    public void attackShip(Ship enemy, Sun sun){
 
         System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
                 +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
@@ -94,7 +95,7 @@ public class Ship {
         }
         enemy.setHealth(enemy.getHealth() - this.damage);
         if(enemy.health <= 0){
-            enemy.death();
+            enemy.death(sun);
         }
     }
 
@@ -111,9 +112,14 @@ public class Ship {
         System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
                 +" sur le "+wreckage.getClass().getSimpleName().toString());
 
-        // TODO donner une carte alien au joueur
         this.owner.getAlienCards().add(wreckage.alienTechnology);
 
+    }
+
+    public void attackSupernova(Sun sun){
+        if(sun.getSupernova() == true){
+            sun.setLife(sun.getLife()-1);
+        }
     }
 
     public void setMaxHealth(int maxHealth) {
@@ -221,7 +227,7 @@ public class Ship {
      * Attack an enemy ship
      * @param enemy
      */
-    public void attack(Ship enemy) {
+    public void attack(Ship enemy, Sun sun) {
         System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
         +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
 
@@ -231,14 +237,15 @@ public class Ship {
         }
         enemy.setHealth(enemy.getHealth() - this.damage);
         if(enemy.health <= 0) {
-            enemy.death();
+            enemy.death(sun);
         }
     }
 
     /**
      * Remove a dead ship from the player's fleet
      */
-    public void death() {
+    public void death(Sun sun) {
+        sun.setLife(sun.getLife()-1);
         this.getOwner().getFleet().remove(this);
         System.out.println("Vaisseau détruit : " +this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
     }

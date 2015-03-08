@@ -1,5 +1,7 @@
 package imac.supernova.datamodel;
 
+import imac.supernova.datamodel.AlienTechnology.AlienTechnology;
+
 /**
  * Created by Angecroft on 24/02/2015.
  */
