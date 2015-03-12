@@ -8,8 +8,8 @@ import imac.supernova.datamodel.ship.Ship;
  */
 public class Teleportation extends AlienTechnology {
 
-    public Teleportation(Player owner){
-        super(owner);
+    public Teleportation(){
+        super();
         this.name = "Téléportation";
 
     }

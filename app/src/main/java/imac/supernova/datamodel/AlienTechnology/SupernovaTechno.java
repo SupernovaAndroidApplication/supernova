@@ -8,8 +8,8 @@ import imac.supernova.datamodel.Sun;
  */
 public class SupernovaTechno extends AlienTechnology {
 
-    public SupernovaTechno(Player owner){
-        super(owner);
+    public SupernovaTechno(){
+        super();
         this.name = "Supernova";
     }
     public void useAlienTechnology(Sun sun){

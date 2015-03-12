@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));
         currentPlayer = game.getPlayer(0); // TODO: handle game turn
         System.out.println("COUCOU C'EST CLARA");
-        AlienTechnology alienweapon = new AlienWeapon(game.getPlayer(0));
+        /*AlienTechnology alienweapon = new AlienWeapon(game.getPlayer(0));
         AlienWreckage aw = new AlienWreckage("ccord", alienweapon);
 
         System.out.println("ALIENTECHNO" + aw.alienTechnology.toString());
@@ -135,13 +135,13 @@ public class MainActivity extends ActionBarActivity {
             alienWeapon.useAlienTechnology(game.getPlayer(0).getFleet().get(0));
         }
 
-
+*/
         ExplorationCards exc = new ExplorationCards();
         System.out.println("NB REMAINING SPACEOBJECTS" + exc.getRemainingSpaceObjects().size());
         System.out.println("REMAINING SPACEOBJECTS" + exc.remainingGameObjectsToString());
 
-       /* System.out.println("NB INGAME SPACEOBJECTS" + exc.getInGameSpaceObjects().size());
-        System.out.println("INGAME SPACEOBJECTS" + exc.inGameSpaceObjectsToString());*/
+       System.out.println("NB INGAME SPACEOBJECTS" + exc.getInGameSpaceObjects().size());
+        System.out.println("INGAME SPACEOBJECTS" + exc.inGameSpaceObjectsToString());
     }
 
     @Override

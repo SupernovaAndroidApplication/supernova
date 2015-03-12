@@ -8,8 +8,8 @@ import imac.supernova.datamodel.ship.Ship;
  * Created by Clara on 08/03/2015.
  */
 public class AlienWeapon extends AlienTechnology {
-    public AlienWeapon(Player owner){
-        super(owner);
+    public AlienWeapon(){
+        super();
         this.name = "Arme Alien";
         this.description = "Utilisée et défaussée lors d’un combat, elle augmente d’une unité supplémentaire la puissance de feu d’un vaisseau de son choix. Valable pour tous les vaisseaux, croiseur y compris. ";
     }

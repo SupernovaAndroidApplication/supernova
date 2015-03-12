@@ -14,6 +14,6 @@ public class AlienWreckage extends SpaceObject {
         this.alienTechnology = alienTechnology;
     }
     public String toString(){
-        return this.getClass().getName() + "Coord : " + this.coordinates + "Type : " + this.alienTechnology.getName();
+        return this.getClass().getName() + "Coord : " + this.coordinates;
     }
 }

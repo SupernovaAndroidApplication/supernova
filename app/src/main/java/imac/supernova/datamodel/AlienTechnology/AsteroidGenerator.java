@@ -7,8 +7,8 @@ import imac.supernova.datamodel.Player;
  * Created by Clara on 08/03/2015.
  */
 public class AsteroidGenerator extends AlienTechnology {
-    public AsteroidGenerator(Player owner){
-        super(owner);
+    public AsteroidGenerator(){
+        super();
         this.name = "Générateur d'asteroides";
     }
     public void useAlienTechnology(ExplorationCards explorationCards){

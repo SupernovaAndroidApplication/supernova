@@ -4,6 +4,13 @@ import android.support.v4.util.ArrayMap;
 
 import java.util.Random;
 
+import imac.supernova.datamodel.AlienTechnology.AlienRegenerator;
+import imac.supernova.datamodel.AlienTechnology.AlienTechnology;
+import imac.supernova.datamodel.AlienTechnology.AlienWeapon;
+import imac.supernova.datamodel.AlienTechnology.AsteroidGenerator;
+import imac.supernova.datamodel.AlienTechnology.SupernovaTechno;
+import imac.supernova.datamodel.AlienTechnology.Teleportation;
+
 /**
  * Created by Angecroft on 19/02/2015.
  */
@@ -36,6 +43,7 @@ public class ExplorationCards {
         }
 
         public static String getRandomCase(){
+
             String result = "";
             Random r = new Random();
             Case value = values()[(int) (Math.random() * values().length)];
@@ -43,6 +51,7 @@ public class ExplorationCards {
 
             int randomNum  = r.nextInt(value.intervalMax-value.intervalMin) + value.intervalMin;
             result += randomNum;
+
 
             return result;
         }
@@ -53,36 +62,28 @@ public class ExplorationCards {
     ArrayMap<String, SpaceObject> inGameSpaceObjects;
 
     public ExplorationCards() {
-        String randomCase;
+        System.out.println("SPACEOBJECTS : NEW EXPLORATIONS CARDS");
 
         //Remplissage de la pioche spaceobjects du jeu
         remainingSpaceObjects = new ArrayMap<String, SpaceObject>();
 
             //Cartes Alien
+            addSpaceObject(new AlienWreckage("",new AlienWeapon()));
+            addSpaceObject(new AlienWreckage("",new AlienRegenerator()));
+            addSpaceObject(new AlienWreckage("",new AsteroidGenerator()));
+            addSpaceObject(new AlienWreckage("",new SupernovaTechno()));
+            addSpaceObject(new AlienWreckage("",new Teleportation()));
 
-        ///PROBLEME AVEC LA FONCTION PUT DE ARRAYMAP. CETTE PARTIE DU CODE PLANTE L'APPLI
 
-        /*    for (AlienTechnology n : AlienTechnology.values()) {
-                randomCase = Case.getRandomCase();
-                while(remainingSpaceObjects.put(randomCase, new AlienWreckage(randomCase, n))!= null){
-                    randomCase = Case.getRandomCase();
-                    remainingSpaceObjects.put(randomCase, new AlienWreckage(randomCase, n));
-                }
+        //Astéroïdes
+            for(int j = 0;j<6;j++){
+                addSpaceObject(new Asteroid(""));
             }
-
-            //Astéroïdes
-            for(int i = 0;i<6;i++){
-                randomCase = Case.getRandomCase();
-                while(remainingSpaceObjects.put(randomCase, new Asteroid(randomCase))!=null){
-                    randomCase = Case.getRandomCase();
-                    remainingSpaceObjects.put(randomCase, new Asteroid(randomCase));
-                }
-            }*/
 
         //Tirage aléatoire des spaceobjects
         inGameSpaceObjects = new ArrayMap<String, SpaceObject>();
 
-         /*for(int i =0;i<6;i++){
+         for(int i =0;i<6;i++){
 
            Random r = new Random();
             int Low = 0;
@@ -91,7 +92,28 @@ public class ExplorationCards {
 
                  inGameSpaceObjects.put(remainingSpaceObjects.keyAt(i), remainingSpaceObjects.valueAt(i));
 
-        }*/
+        }
+    }
+
+    public void addSpaceObject(SpaceObject so){
+        String  randomCase = "E1";
+        System.out.println("SPACEOBJECTS : next space object");
+        System.out.println("SPACEOBJECTS current random case : " + randomCase);
+
+        if(remainingSpaceObjects.get(randomCase) == null) {
+            so.setCoordinates(randomCase);
+            remainingSpaceObjects.put(randomCase, so);
+        }
+        else {
+            while(remainingSpaceObjects.get(randomCase) != null){
+                randomCase = Case.getRandomCase();
+                System.out.println("SPACEOBJECTS : new random case " + randomCase);
+            }
+            so.setCoordinates(randomCase);
+            if(remainingSpaceObjects.put(randomCase, so)==null) {
+                System.out.println("SPACEOBJECTS : add a new space object success");
+            }
+        }
     }
 
     /** Draw a card among those remaining */

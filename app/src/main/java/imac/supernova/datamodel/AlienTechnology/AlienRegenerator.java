@@ -7,8 +7,8 @@ import imac.supernova.datamodel.ship.Ship;
  * Created by Clara on 08/03/2015.
  */
 public class AlienRegenerator extends  AlienTechnology {
-    public AlienRegenerator(Player owner){
-        super(owner);
+    public AlienRegenerator(){
+        super();
         this.name = "Régénérateur alien";
     }
     public void useAlienTechnology(Ship ship){

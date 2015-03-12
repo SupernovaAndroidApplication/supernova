@@ -18,8 +18,7 @@ public class AlienTechnology {
     public String description = "";
     public Player owner;
 
-    AlienTechnology(Player owner){
-        this.owner = owner;
+    public AlienTechnology(){
     }
 
     public String getDescription() {
