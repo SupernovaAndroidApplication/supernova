@@ -44,13 +44,6 @@ public class Ship {
         return id;
     }
 
-    public void buyWeapon(){
-        if(this.getOwner().getCredit() > 0){
-            this.getOwner().spendCredit();
-            installWeapon();
-        }
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -148,9 +141,44 @@ public class Ship {
     /** Actions */
     // Buy shield
     public void buyShield(){
-        if(this.getOwner().getCredit() > 0){
+        //if(this.getOwner().getCredit() > 0){
             this.getOwner().spendCredit();
             installShield();
+        //}
+    }
+
+    public void buyWeapon(){
+        //if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installWeapon();
+        //}
+    }
+
+    /**
+     * Install a weapon
+     */
+    public void installWeapon() {
+        if(!this.hasWeapon){
+            this.hasWeapon = true;
+            this.damage +=1;
+            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+        }
+        else {
+            System.out.println("Vous avez déjà installé une arme ! ");
+        }
+    }
+
+    /**
+     * Install a shield
+     */
+    public void installShield() {
+        if(!this.hasShield) {
+            this.hasShield = true;
+            this.health += 1;
+            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+        }
+        else {
+            System.out.println("Vous avez déjà installé un bouclier ! ");
         }
     }
 
@@ -208,35 +236,6 @@ public class Ship {
      */
     public void regenerateHealth() {
         this.health = this.maxHealth;
-    }
-
-    /**
-     * Install a weapon
-     */
-    public void installWeapon() {
-        if(!this.hasWeapon){
-            this.hasWeapon = true;
-            this.damage +=1;
-            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-
-        }
-        else {
-            System.out.println("Vous avez déjà installé une arme ! ");
-        }
-    }
-
-    /**
-     * Install a shield
-     */
-    public void installShield() {
-        if(!this.hasShield) {
-            this.hasShield = true;
-            this.health += 1;
-            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-        }
-        else {
-            System.out.println("Vous avez déjà installé un bouclier ! ");
-        }
     }
 
     /**

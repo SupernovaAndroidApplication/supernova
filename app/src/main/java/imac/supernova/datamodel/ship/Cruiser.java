@@ -11,7 +11,7 @@ public class Cruiser extends Ship {
         super(owner);
         setMaxHealth(6); // 1 = 50 and 6 = 300
         setHealth(getMaxHealth());
-        setMaxDamage(1); // 1 = 150 and 2 = 300
+        setMaxDamage(1); // 1 = 300 and 2 = 300
         setDamage(getMaxDamage());
         setMaxMove(2); // 1 = 60 and 2 = 120
         setMove(getMaxMove());
