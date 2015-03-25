@@ -29,21 +29,21 @@ public class FighterNerenide extends MeshObject
     }
 
     private void setVerts() {
-        double[] FIGHTER_VERTS = new double[10242];
+        double[] FIGHTER_VERTS = new double[21258];
         ModelLoader.loadContent(FIGHTER_VERTS, "nerenide_fighter_verts.txt", am);
         mVertBuff = fillBuffer(FIGHTER_VERTS);
-        verticesNumber = 3414;
+        verticesNumber = 7086;
     }
 
     private void setTexCoords() {
-        double[] FIGHTER_TEX_COORDS = new double[6828];
+        double[] FIGHTER_TEX_COORDS = new double[14172];
         ModelLoader.loadContent(FIGHTER_TEX_COORDS, "nerenide_fighter_texCoords.txt", am);
         mTexCoordBuff = fillBuffer(FIGHTER_TEX_COORDS);
     }
 
     private void setNorms()
     {
-        double[] FIGHTER_NORMS = new double[10242];
+        double[] FIGHTER_NORMS = new double[21258];
         ModelLoader.loadContent(FIGHTER_NORMS, "nerenide_fighter_norms.txt", am);
         mNormBuff = fillBuffer(FIGHTER_NORMS);
     }

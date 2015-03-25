@@ -29,21 +29,21 @@ public class BomberNerenide extends MeshObject
     }
 
     private void setVerts() {
-        double[] BOMBER_VERTS = new double[10242];
+        double[] BOMBER_VERTS = new double[32922];
         ModelLoader.loadContent(BOMBER_VERTS, "nerenide_bomber_verts.txt", am);
         mVertBuff = fillBuffer(BOMBER_VERTS);
-        verticesNumber = 3414;
+        verticesNumber = 10974;
     }
 
     private void setTexCoords() {
-        double[] BOMBER_TEX_COORDS = new double[6828];
+        double[] BOMBER_TEX_COORDS = new double[21948];
         ModelLoader.loadContent(BOMBER_TEX_COORDS, "nerenide_bomber_texCoords.txt", am);
         mTexCoordBuff = fillBuffer(BOMBER_TEX_COORDS);
     }
 
     private void setNorms()
     {
-        double[] BOMBER_NORMS = new double[10242];
+        double[] BOMBER_NORMS = new double[32922];
         ModelLoader.loadContent(BOMBER_NORMS, "nerenide_bomber_norms.txt", am);
         mNormBuff = fillBuffer(BOMBER_NORMS);
     }

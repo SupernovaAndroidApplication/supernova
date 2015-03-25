@@ -1,4 +1,4 @@
-package imac.supernova.ARVuforia.dataobjects.terran;
+package imac.supernova.ARVuforia.dataobjects;
 
 import android.content.res.AssetManager;
 
@@ -8,9 +8,9 @@ import imac.supernova.ARVuforia.utils.MeshObject;
 import imac.supernova.ARVuforia.utils.ModelLoader;
 
 /**
- * Created by Angecroft on 24/03/2015.
+ * Created by Angecroft on 25/03/2015.
  */
-public class BomberTerran extends MeshObject
+public class Asteroid extends MeshObject
 {
     private Buffer mVertBuff;
     private Buffer mTexCoordBuff;
@@ -20,7 +20,7 @@ public class BomberTerran extends MeshObject
     private int indicesNumber = 0;
     private int verticesNumber = 0;
 
-    public BomberTerran(AssetManager am_)
+    public Asteroid(AssetManager am_)
     {
         am = am_;
         setVerts();
@@ -29,23 +29,23 @@ public class BomberTerran extends MeshObject
     }
 
     private void setVerts() {
-        double[] BOMBER_VERTS = new double[31824];
-        ModelLoader.loadContent(BOMBER_VERTS, "terran_bomber_verts.txt", am);
-        mVertBuff = fillBuffer(BOMBER_VERTS);
-        verticesNumber = 10608;
+        double[] ASTEROID_VERTS = new double[8640];
+        ModelLoader.loadContent(ASTEROID_VERTS, "asteroid_verts.txt", am);
+        mVertBuff = fillBuffer(ASTEROID_VERTS);
+        verticesNumber = 2880;
     }
 
     private void setTexCoords() {
-        double[] BOMBER_TEX_COORDS = new double[21216];
-        ModelLoader.loadContent(BOMBER_TEX_COORDS, "terran_bomber_texCoords.txt", am);
-        mTexCoordBuff = fillBuffer(BOMBER_TEX_COORDS);
+        double[] ASTEROID_TEX_COORDS = new double[5760];
+        ModelLoader.loadContent(ASTEROID_TEX_COORDS, "asteroid_texCoords.txt", am);
+        mTexCoordBuff = fillBuffer(ASTEROID_TEX_COORDS);
     }
 
     private void setNorms()
     {
-        double[] BOMBER_NORMS = new double[31824];
-        ModelLoader.loadContent(BOMBER_NORMS, "terran_bomber_norms.txt", am);
-        mNormBuff = fillBuffer(BOMBER_NORMS);
+        double[] ASTEROID_NORMS = new double[8640];
+        ModelLoader.loadContent(ASTEROID_NORMS, "asteroid_norms.txt", am);
+        mNormBuff = fillBuffer(ASTEROID_NORMS);
     }
 
     public int getNumObjectIndex()

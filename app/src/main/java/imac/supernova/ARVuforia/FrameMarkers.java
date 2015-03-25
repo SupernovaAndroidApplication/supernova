@@ -120,6 +120,17 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_fighter.jpg", getAssets()));    // Fighter
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Cruiser
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Bomber
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_fighter.jpg", getAssets()));      // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Bomber
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/asteroid.jpg", getAssets()));            // Asteroid
+
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/life_2.png",getAssets()));
     }
 

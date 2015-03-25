@@ -22,6 +22,7 @@ public class ObjectType {
 
     public static final int ASTEROID = 24;
 
+
     // Textures index
     public static final int BOHR_FIGHTER_T = 0;
     public static final int BOHR_CRUISER_T = 1;

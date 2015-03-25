@@ -31,8 +31,13 @@ import com.qualcomm.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.qualcomm.vuforia.Vuforia;
 
 //import imac.supernova.ARVuforia.dataobjects.bohregon.BomberBohregon;
+import imac.supernova.ARVuforia.dataobjects.Asteroid;
 import imac.supernova.ARVuforia.dataobjects.bohregon.BomberBohregon;
 import imac.supernova.ARVuforia.dataobjects.bohregon.FighterBohregon;
+import imac.supernova.ARVuforia.dataobjects.nerenide.BomberNerenide;
+import imac.supernova.ARVuforia.dataobjects.nerenide.FighterNerenide;
+import imac.supernova.ARVuforia.dataobjects.terran.BomberTerran;
+import imac.supernova.ARVuforia.dataobjects.terran.FighterTerran;
 import imac.supernova.ARVuforia.utils.CubeShaders;
 import imac.supernova.ARVuforia.utils.ObjectType;
 import imac.supernova.ARVuforia.utils.PlaneObject;
@@ -54,7 +59,19 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     private Vector<Texture> mTextures;
 
     private double prevTime;
+    private double prevTimeAsteroid0;
+    private double prevTimeAsteroid1;
+    private double prevTimeAsteroid2;
+    private double prevTimeAsteroid3;
+    private double prevTimeAsteroid4;
+    private double prevTimeAsteroid5;
     private float rotateAngle;
+    private float rotateAngleAsteroid0;
+    private float rotateAngleAsteroid1;
+    private float rotateAngleAsteroid2;
+    private float rotateAngleAsteroid3;
+    private float rotateAngleAsteroid4;
+    private float rotateAngleAsteroid5;
     
     // OpenGL ES 2.0 specific:
     private int shaderProgramID = 0;
@@ -69,16 +86,34 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     static private float kLetterTranslate = 0.0f;
     static private float lifeHUDScale = 23.0f;
 
+    // Ships
     private FighterBohregon fighterBohregon;
     private BomberBohregon bomberBohregon;
+    private FighterTerran fighterTerran;
+    private BomberTerran bomberTerran;
+    private FighterNerenide fighterNerenide;
+    private BomberNerenide bomberNerenide;
+
+    // Asteroid
+    private Asteroid asteroid;
+
     private PlaneObject plane = new PlaneObject();
 
     public FrameMarkerRenderer(FrameMarkers activity,SampleApplicationSession session)
     {
         mActivity = activity;
         am = mActivity.getAssets();
+
+        // Ships
         fighterBohregon = new FighterBohregon(am);
         bomberBohregon = new BomberBohregon(am);
+        fighterTerran = new FighterTerran(am);
+        bomberTerran = new BomberTerran(am);
+        fighterNerenide = new FighterNerenide(am);
+        bomberNerenide = new BomberNerenide(am);
+
+        asteroid = new Asteroid(am);
+
         vuforiaAppSession = session;
     }
 
@@ -204,11 +239,13 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             Buffer texCoordsLife = null;
             int numVertObjectLife = 0;
 
+            int lifeTextureIndex = 13;
+
             switch (marker.getMarkerId())
             {
                 case ObjectType.BOHREGON_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -222,7 +259,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_FIGHTER+1:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -236,7 +273,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_FIGHTER+2:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -248,13 +285,13 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     texCoordsLife = plane.getTexCoords();
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
-                case ObjectType.BOHREGONG_CRUISER:
+/*                case ObjectType.BOHREGONG_CRUISER:
                     shipTexture =  mTextures.get(ObjectType.BOHR_CRUISER_T);
                     lifeTexture = mTextures.get(3);
-                    break;
+                    break;*/
                 case ObjectType.BOHREGON_BOMBER:
                     shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
-                    lifeTexture = mTextures.get(3);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
 
                     verticesShip = bomberBohregon.getVertices();
                     normalsShip = bomberBohregon.getNormals();
@@ -268,7 +305,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_BOMBER+1:
                     shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
-                    lifeTexture = mTextures.get(3);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
 
                     verticesShip = bomberBohregon.getVertices();
                     normalsShip = bomberBohregon.getNormals();
@@ -281,54 +318,154 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.TERRAN_FIGHTER:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterTerran.getVertices();
+                    normalsShip = fighterTerran.getNormals();
+                    texCoordsShip = fighterTerran.getTexCoords();
+                    numVertObjectShip = fighterTerran.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.TERRAN_FIGHTER+1:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterTerran.getVertices();
+                    normalsShip = fighterTerran.getNormals();
+                    texCoordsShip = fighterTerran.getTexCoords();
+                    numVertObjectShip = fighterTerran.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.TERRAN_FIGHTER+2:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterTerran.getVertices();
+                    normalsShip = fighterTerran.getNormals();
+                    texCoordsShip = fighterTerran.getTexCoords();
+                    numVertObjectShip = fighterTerran.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
-                case ObjectType.TERRAN_CRUISER:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_CRUISER);
-                    lifeTexture = mTextures.get(1);
-                    break;
+/*                case ObjectType.TERRAN_CRUISER:
+                    shipTexture =  mTextures.get(ObjectType.TER_CRUISER_T);
+                    lifeTexture = mTextures.get(3);
+                    break;*/
                 case ObjectType.TERRAN_BOMBER:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.TER_BOMBER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = bomberTerran.getVertices();
+                    normalsShip = bomberTerran.getNormals();
+                    texCoordsShip = bomberTerran.getTexCoords();
+                    numVertObjectShip = bomberTerran.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.TERRAN_BOMBER+1:
-                    shipTexture =  mTextures.get(ObjectType.TERRAN_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.TER_BOMBER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = bomberTerran.getVertices();
+                    normalsShip = bomberTerran.getNormals();
+                    texCoordsShip = bomberTerran.getTexCoords();
+                    numVertObjectShip = bomberTerran.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.NERENIDE_FIGHTER:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterNerenide.getVertices();
+                    normalsShip = fighterNerenide.getNormals();
+                    texCoordsShip = fighterNerenide.getTexCoords();
+                    numVertObjectShip = fighterNerenide.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.NERENIDE_FIGHTER+1:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterNerenide.getVertices();
+                    normalsShip = fighterNerenide.getNormals();
+                    texCoordsShip = fighterNerenide.getTexCoords();
+                    numVertObjectShip = fighterNerenide.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.NERENIDE_FIGHTER+2:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_FIGHTER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = fighterNerenide.getVertices();
+                    normalsShip = fighterNerenide.getNormals();
+                    texCoordsShip = fighterNerenide.getTexCoords();
+                    numVertObjectShip = fighterNerenide.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
-                case ObjectType.NERENIDE_CRUISER:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_CRUISER);
-                    lifeTexture = mTextures.get(1);
-                    break;
+//                case ObjectType.NERENIDE_CRUISER:
+//                    shipTexture =  mTextures.get(ObjectType.NERENIDE_CRUISER);
+//                    lifeTexture = mTextures.get(1);
+//                    break;
                 case ObjectType.NERENIDE_BOMBER:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.NER_BOMBER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = bomberNerenide.getVertices();
+                    normalsShip = bomberNerenide.getNormals();
+                    texCoordsShip = bomberNerenide.getTexCoords();
+                    numVertObjectShip = bomberNerenide.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.NERENIDE_BOMBER+1:
-                    shipTexture =  mTextures.get(ObjectType.NERENIDE_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.NER_BOMBER_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = bomberNerenide.getVertices();
+                    normalsShip = bomberNerenide.getNormals();
+                    texCoordsShip = bomberNerenide.getTexCoords();
+                    numVertObjectShip = bomberNerenide.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
-                case ObjectType.YTTRIKT_FIGHTER:
+             /*   case ObjectType.YTTRIKT_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.YTTRIKT_FIGHTER);
                     lifeTexture = mTextures.get(1);
                     break;
@@ -351,14 +488,94 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                 case ObjectType.YTTRIKT_BOMBER+1:
                     shipTexture =  mTextures.get(ObjectType.YTTRIKT_BOMBER);
                     lifeTexture = mTextures.get(1);
-                    break;
+                    break;*/
                 case ObjectType.ASTEROID:
-                    shipTexture =  mTextures.get(ObjectType.ASTEROID);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
+                    break;
+                case ObjectType.ASTEROID+1:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
+                    break;
+                case ObjectType.ASTEROID+2:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
+                    break;
+                case ObjectType.ASTEROID+3:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
+                    break;
+                case ObjectType.ASTEROID+4:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
+                    break;
+                case ObjectType.ASTEROID+5:
+                    shipTexture =  mTextures.get(ObjectType.ASTEROID_T);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
+
+                    verticesShip = asteroid.getVertices();
+                    normalsShip = asteroid.getNormals();
+                    texCoordsShip = asteroid.getTexCoords();
+                    numVertObjectShip = asteroid.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 default:
                     shipTexture =  mTextures.get(0);
-                    lifeTexture = mTextures.get(1);
+                    lifeTexture = mTextures.get(lifeTextureIndex);
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -375,41 +592,48 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             float[] modelViewProjectionShip = new float[16];
             float[] modelViewProjectionLife = new float[16];
 
-            Matrix.translateM(modelViewMatrixShip, 0, 0, 0, 30);
-            Matrix.scaleM(modelViewMatrixShip, 0, shipScale, shipScale, shipScale);
-            Matrix.multiplyMM(modelViewProjectionShip, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixShip, 0);
-
-            GLES20.glUseProgram(shaderProgramID);
-
-            /** Ship */
-            GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesShip);
-            GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsShip);
-            GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsShip);
-            GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsShip);
-
-            GLES20.glEnableVertexAttribArray(vertexHandle);
-            GLES20.glEnableVertexAttribArray(normalHandle);
-            GLES20.glEnableVertexAttribArray(textureCoordHandle);
-
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, shipTexture.mTextureID[0]);
-            GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionShip, 0);
-            GLES20.glUniform1i(texSampler2DHandle, 0);
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectShip);
-
-            GLES20.glDisableVertexAttribArray(vertexHandle);
-            GLES20.glDisableVertexAttribArray(normalHandle);
-            GLES20.glDisableVertexAttribArray(textureCoordHandle);
-
-            /** Life */
-            if(marker.getMarkerId() != ObjectType.ASTEROID)
+            /** Ships */
+            if(marker.getMarkerId() != ObjectType.ASTEROID && marker.getMarkerId() != ObjectType.ASTEROID+1 && marker.getMarkerId() != ObjectType.ASTEROID+2
+               && marker.getMarkerId() != ObjectType.ASTEROID+3 && marker.getMarkerId() != ObjectType.ASTEROID+4 && marker.getMarkerId() != ObjectType.ASTEROID+5)
             {
+                Matrix.translateM(modelViewMatrixShip, 0, 0, 0, 30);
+                Matrix.scaleM(modelViewMatrixShip, 0, shipScale, shipScale, shipScale);
+                Matrix.multiplyMM(modelViewProjectionShip, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixShip, 0);
+
+                GLES20.glUseProgram(shaderProgramID);
+
+                // ------------
+                // Ship
+                // ------------
+                GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesShip);
+                GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsShip);
+                GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsShip);
+                GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsShip);
+
+                GLES20.glEnableVertexAttribArray(vertexHandle);
+                GLES20.glEnableVertexAttribArray(normalHandle);
+                GLES20.glEnableVertexAttribArray(textureCoordHandle);
+
+                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, shipTexture.mTextureID[0]);
+                GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionShip, 0);
+                GLES20.glUniform1i(texSampler2DHandle, 0);
+                GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectShip);
+
+                GLES20.glDisableVertexAttribArray(vertexHandle);
+                GLES20.glDisableVertexAttribArray(normalHandle);
+                GLES20.glDisableVertexAttribArray(textureCoordHandle);
+
+                // ------------
+                // Life
+                // ------------
+
                 GLES20.glEnable(GLES20.GL_BLEND);
                 GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
                 animateLifeHUD(modelViewMatrixLife);
 
-                Matrix.translateM(modelViewMatrixLife, 0, 0, 0, 25);
+                Matrix.translateM(modelViewMatrixLife, 0, 0, 0, 10);
 //                Matrix.rotateM(modelViewMatrixLife, 0, 0, 0, 0, 0);
                 Matrix.scaleM(modelViewMatrixLife, 0, lifeHUDScale, lifeHUDScale, lifeHUDScale);
                 Matrix.multiplyMM(modelViewProjectionLife, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixLife, 0);
@@ -435,6 +659,38 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
 
                 GLES20.glDisable(GLES20.GL_BLEND);
             }
+            else
+            {
+                animateAsteroid(modelViewMatrixShip, marker.getMarkerId());
+
+                Matrix.translateM(modelViewMatrixShip, 0, 0, 0, 30);
+                Matrix.scaleM(modelViewMatrixShip, 0, shipScale, shipScale, shipScale);
+                Matrix.multiplyMM(modelViewProjectionShip, 0, vuforiaAppSession.getProjectionMatrix().getData(), 0, modelViewMatrixShip, 0);
+
+                GLES20.glUseProgram(shaderProgramID);
+
+                // ------------
+                // Asteroids
+                // ------------
+                GLES20.glVertexAttribPointer(vertexHandle, 3, GLES20.GL_FLOAT, false, 0, verticesShip);
+                GLES20.glVertexAttribPointer(normalHandle, 3, GLES20.GL_FLOAT, false, 0, normalsShip);
+                GLES20.glVertexAttribPointer(textureCoordHandle, 2, GLES20.GL_FLOAT, false, 0, texCoordsShip);
+                GLES10.glTexCoordPointer(2, GLES10.GL_FLOAT, 0, texCoordsShip);
+
+                GLES20.glEnableVertexAttribArray(vertexHandle);
+                GLES20.glEnableVertexAttribArray(normalHandle);
+                GLES20.glEnableVertexAttribArray(textureCoordHandle);
+
+                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, shipTexture.mTextureID[0]);
+                GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, modelViewProjectionShip, 0);
+                GLES20.glUniform1i(texSampler2DHandle, 0);
+                GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, numVertObjectShip);
+
+                GLES20.glDisableVertexAttribArray(vertexHandle);
+                GLES20.glDisableVertexAttribArray(normalHandle);
+                GLES20.glDisableVertexAttribArray(textureCoordHandle);
+            }
             SampleUtils.checkGLError("FrameMarkers render frame");
         }
 
@@ -459,5 +715,91 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
         Matrix.rotateM(modelViewMatrix, 0, rotateAngle, 0.0f, 0.0f, 1.0f);
 
         prevTime = time;
+    }
+
+    private void animateAsteroid(float[] modelViewMatrix, int phase)
+    {
+        double time = System.currentTimeMillis(); // Get real time difference
+        float dt;
+        float coeff = 0.009f;
+
+        if(phase == 24)
+        {
+            dt = (float) (time - prevTimeAsteroid0) / 1000; // from frame to frame
+
+            rotateAngleAsteroid0 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid0 += ((phase + 20) * coeff);
+            rotateAngleAsteroid0 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid0);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid0, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid0 = time;
+        }
+        else if(phase == 25)
+        {
+            dt = (float) (time - prevTimeAsteroid1) / 1000; // from frame to frame
+
+            rotateAngleAsteroid1 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid1 += ((phase + 20) * coeff);
+            rotateAngleAsteroid1 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid1);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid1, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid1 = time;
+        }
+        else if(phase == 26)
+        {
+            dt = (float) (time - prevTimeAsteroid2) / 1000; // from frame to frame
+
+            rotateAngleAsteroid2 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid2 += ((phase + 20) * coeff);
+            rotateAngleAsteroid2 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid2);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid2, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid2 = time;
+        }
+        else if(phase == 27)
+        {
+            dt = (float) (time - prevTimeAsteroid3) / 1000; // from frame to frame
+
+            rotateAngleAsteroid3 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid3 += ((phase + 25) * coeff);
+            rotateAngleAsteroid3 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid3);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid3, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid3 = time;
+        }
+        else if(phase == 28)
+        {
+            dt = (float) (time - prevTimeAsteroid4) / 1000; // from frame to frame
+
+            rotateAngleAsteroid4 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid4 += ((phase + 20) * coeff);
+            rotateAngleAsteroid4 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid4);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid4, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid4 = time;
+        }
+        else if(phase == 29)
+        {
+            dt = (float) (time - prevTimeAsteroid5) / 1000; // from frame to frame
+
+            rotateAngleAsteroid5 += dt * coeff * 180.0f / 3.1415f; // Animate angle based on time
+            rotateAngleAsteroid5 += ((phase + 30) * coeff) ;
+            rotateAngleAsteroid5 %= 360;
+            Log.d(LOGTAG, "Delta animation time 2: " + rotateAngleAsteroid5);
+
+            Matrix.rotateM(modelViewMatrix, 0, rotateAngleAsteroid5, 0.0f, 0.0f, 1.0f);
+
+            prevTimeAsteroid5 = time;
+        }
     }
 }
