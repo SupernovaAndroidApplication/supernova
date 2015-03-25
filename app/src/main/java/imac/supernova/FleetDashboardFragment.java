@@ -2,6 +2,7 @@ package imac.supernova;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,9 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
 
     private Button button_buy_shield;
     private Button button_buy_weapon;
+
+    private Button button_attack_enemy;
+    private Button button_attack_asteroid;
 
     public Game currentGame;
     public List<Ship> playerFleet;
@@ -103,6 +107,13 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
         button_buy_weapon = (Button) v.findViewById(R.id.button_buy_weapon);
         button_buy_weapon.setOnClickListener(this);
 
+        // Button attack an enemy
+        button_attack_enemy = (Button) v.findViewById(R.id.button_attack_enemy);
+        button_attack_enemy.setOnClickListener(this);
+        // Button attack an asteroid
+        button_attack_asteroid = (Button) v.findViewById(R.id.button_attack_asteroid);
+        button_attack_asteroid.setOnClickListener(this);
+
         // Get the current game and the current player's fleet
         currentGame = ((MainActivity) getActivity()).game;
         playerFleet = currentGame.getFleetOfCurrentPlayer();
@@ -152,6 +163,15 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
                 playerFleet.get((Integer) v.getTag()).buyWeapon();
                 updateDamageDisplay((Integer) v.getTag());
                 button_buy_weapon.setVisibility(View.INVISIBLE);
+                break;
+
+            /* Attack buttons */
+            case R.id.button_attack_enemy:
+                /*Fragment fragment = new EnemyFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();*/
+                break;
+            case R.id.button_attack_asteroid:
                 break;
 
             default:

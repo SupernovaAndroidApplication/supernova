@@ -87,6 +87,36 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginBottom="30dp">
+                    <Button
+                        android:id="@+id/button_attack_enemy"
+                        android:layout_width="90dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Attack an enemy"
+                        android:textColor="#fff"
+                        android:textSize="12dp"
+                        android:background="#ff000000"
+                        style="?android:attr/borderlessButtonStyle" />
+
+                    <Button
+                        android:id="@+id/button_attack_asteroid"
+                        android:layout_width="90dp"
+                        android:layout_height="25dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Attack an asteroid"
+                        android:textColor="#fff"
+                        android:textSize="12dp"
+                        android:background="#ff000000"
+                        style="?android:attr/borderlessButtonStyle" />
+                </LinearLayout>
+
                 <!-- Health units -->
                 <TextView
                     android:layout_width="wrap_content"
