@@ -22,4 +22,23 @@ public class ObjectType {
 
     public static final int ASTEROID = 24;
 
+    // Textures index
+    public static final int BOHR_FIGHTER_T = 0;
+    public static final int BOHR_CRUISER_T = 1;
+    public static final int BOHR_BOMBER_T = 2;
+
+    public static final int TER_FIGHTER_T = 3;
+    public static final int TER_CRUISER_T = 4;
+    public static final int TER_BOMBER_T = 5;
+
+    public static final int NER_FIGHTER_T = 6;
+    public static final int NER_CRUISER_T = 7;
+    public static final int NER_BOMBER_T = 8;
+
+    public static final int YTT_FIGHTER_T = 9;
+    public static final int YTT_CRUISER_T = 10;
+    public static final int YTT_BOMBER_T = 11;
+
+    public static final int ASTEROID_T = 12;
+
 }

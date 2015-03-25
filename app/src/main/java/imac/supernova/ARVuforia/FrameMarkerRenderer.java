@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.res.AssetManager;
 import android.opengl.GLES10;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -29,6 +30,8 @@ import com.qualcomm.vuforia.TrackableResult;
 import com.qualcomm.vuforia.VIDEO_BACKGROUND_REFLECTION;
 import com.qualcomm.vuforia.Vuforia;
 
+//import imac.supernova.ARVuforia.dataobjects.bohregon.BomberBohregon;
+import imac.supernova.ARVuforia.dataobjects.bohregon.BomberBohregon;
 import imac.supernova.ARVuforia.dataobjects.bohregon.FighterBohregon;
 import imac.supernova.ARVuforia.utils.CubeShaders;
 import imac.supernova.ARVuforia.utils.ObjectType;
@@ -44,6 +47,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     
     SampleApplicationSession vuforiaAppSession;
     FrameMarkers mActivity;
+    AssetManager am;
     
     public boolean mIsActive = false;
     
@@ -65,12 +69,16 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     static private float kLetterTranslate = 0.0f;
     static private float lifeHUDScale = 23.0f;
 
-    private FighterBohregon fighterBohregon = new FighterBohregon();
+    private FighterBohregon fighterBohregon;
+    private BomberBohregon bomberBohregon;
     private PlaneObject plane = new PlaneObject();
 
     public FrameMarkerRenderer(FrameMarkers activity,SampleApplicationSession session)
     {
         mActivity = activity;
+        am = mActivity.getAssets();
+        fighterBohregon = new FighterBohregon(am);
+        bomberBohregon = new BomberBohregon(am);
         vuforiaAppSession = session;
     }
 
@@ -199,8 +207,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             switch (marker.getMarkerId())
             {
                 case ObjectType.BOHREGON_FIGHTER:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGON_FIGHTER);
-                    lifeTexture = mTextures.get(1); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
+                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -213,8 +221,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.BOHREGON_FIGHTER+1:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGON_FIGHTER);
-                    lifeTexture = mTextures.get(1); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
+                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -227,8 +235,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.BOHREGON_FIGHTER+2:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGON_FIGHTER);
-                    lifeTexture = mTextures.get(1); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
+                    lifeTexture = mTextures.get(3); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -241,16 +249,36 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.BOHREGONG_CRUISER:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGONG_CRUISER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.BOHR_CRUISER_T);
+                    lifeTexture = mTextures.get(3);
                     break;
                 case ObjectType.BOHREGON_BOMBER:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGON_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
+                    lifeTexture = mTextures.get(3);
+
+                    verticesShip = bomberBohregon.getVertices();
+                    normalsShip = bomberBohregon.getNormals();
+                    texCoordsShip = bomberBohregon.getTexCoords();
+                    numVertObjectShip = bomberBohregon.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.BOHREGON_BOMBER+1:
-                    shipTexture =  mTextures.get(ObjectType.BOHREGON_BOMBER);
-                    lifeTexture = mTextures.get(1);
+                    shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
+                    lifeTexture = mTextures.get(3);
+
+                    verticesShip = bomberBohregon.getVertices();
+                    normalsShip = bomberBohregon.getNormals();
+                    texCoordsShip = bomberBohregon.getTexCoords();
+                    numVertObjectShip = bomberBohregon.getNumObjectVertex();
+
+                    verticesLife = plane.getVertices();
+                    normalsLife = plane.getNormals();
+                    texCoordsLife = plane.getTexCoords();
+                    numVertObjectLife = plane.getNumObjectVertex();
                     break;
                 case ObjectType.TERRAN_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.TERRAN_FIGHTER);

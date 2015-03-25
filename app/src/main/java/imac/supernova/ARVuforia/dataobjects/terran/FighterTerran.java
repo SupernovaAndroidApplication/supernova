@@ -1,20 +1,16 @@
-package imac.supernova.ARVuforia.dataobjects.bohregon;
+package imac.supernova.ARVuforia.dataobjects.terran;
 
-import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Environment;
 
-import java.io.File;
 import java.nio.Buffer;
 
-import imac.supernova.ARVuforia.FrameMarkers;
 import imac.supernova.ARVuforia.utils.MeshObject;
 import imac.supernova.ARVuforia.utils.ModelLoader;
 
 /**
- * Created by Angecroft on 05/03/2015.
+ * Created by Angecroft on 24/03/2015.
  */
-public class FighterBohregon extends MeshObject
+public class FighterTerran extends MeshObject
 {
     private Buffer mVertBuff;
     private Buffer mTexCoordBuff;
@@ -24,7 +20,7 @@ public class FighterBohregon extends MeshObject
     private int indicesNumber = 0;
     private int verticesNumber = 0;
 
-    public FighterBohregon(AssetManager am_)
+    public FighterTerran(AssetManager am_)
     {
         am = am_;
         setVerts();
@@ -33,23 +29,22 @@ public class FighterBohregon extends MeshObject
     }
 
     private void setVerts() {
-        double[] FIGHTER_VERTS = new double[6930];
-
-        ModelLoader.loadContent(FIGHTER_VERTS, "bohregon_fighter_verts.txt", am);
+        double[] FIGHTER_VERTS = new double[10242];
+        ModelLoader.loadContent(FIGHTER_VERTS, "terran_fighter_verts.txt", am);
         mVertBuff = fillBuffer(FIGHTER_VERTS);
-        verticesNumber = 2310;
+        verticesNumber = 3414;
     }
 
     private void setTexCoords() {
-        double[] FIGHTER_TEX_COORDS = new double[4620];
-        ModelLoader.loadContent(FIGHTER_TEX_COORDS, "bohregon_fighter_texCoords.txt", am);
+        double[] FIGHTER_TEX_COORDS = new double[6828];
+        ModelLoader.loadContent(FIGHTER_TEX_COORDS, "terran_fighter_texCoords.txt", am);
         mTexCoordBuff = fillBuffer(FIGHTER_TEX_COORDS);
     }
 
     private void setNorms()
     {
-        double[] FIGHTER_NORMS = new double[6930];
-        ModelLoader.loadContent(FIGHTER_NORMS, "bohregon_fighter_norms.txt", am);
+        double[] FIGHTER_NORMS = new double[10242];
+        ModelLoader.loadContent(FIGHTER_NORMS, "terran_fighter_norms.txt", am);
         mNormBuff = fillBuffer(FIGHTER_NORMS);
     }
 
@@ -58,13 +53,11 @@ public class FighterBohregon extends MeshObject
         return indicesNumber;
     }
 
-
     @Override
     public int getNumObjectVertex()
     {
         return verticesNumber;
     }
-
 
     @Override
     public Buffer getBuffer(BUFFER_TYPE bufferType)

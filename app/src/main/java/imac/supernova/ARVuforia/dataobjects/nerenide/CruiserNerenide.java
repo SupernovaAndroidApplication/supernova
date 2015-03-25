@@ -1,20 +1,16 @@
-package imac.supernova.ARVuforia.dataobjects.bohregon;
+package imac.supernova.ARVuforia.dataobjects.nerenide;
 
-import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Environment;
 
-import java.io.File;
 import java.nio.Buffer;
 
-import imac.supernova.ARVuforia.FrameMarkers;
 import imac.supernova.ARVuforia.utils.MeshObject;
 import imac.supernova.ARVuforia.utils.ModelLoader;
 
 /**
- * Created by Angecroft on 05/03/2015.
+ * Created by Angecroft on 24/03/2015.
  */
-public class FighterBohregon extends MeshObject
+public class CruiserNerenide extends MeshObject
 {
     private Buffer mVertBuff;
     private Buffer mTexCoordBuff;
@@ -24,7 +20,7 @@ public class FighterBohregon extends MeshObject
     private int indicesNumber = 0;
     private int verticesNumber = 0;
 
-    public FighterBohregon(AssetManager am_)
+    public CruiserNerenide(AssetManager am_)
     {
         am = am_;
         setVerts();
@@ -33,24 +29,23 @@ public class FighterBohregon extends MeshObject
     }
 
     private void setVerts() {
-        double[] FIGHTER_VERTS = new double[6930];
-
-        ModelLoader.loadContent(FIGHTER_VERTS, "bohregon_fighter_verts.txt", am);
-        mVertBuff = fillBuffer(FIGHTER_VERTS);
-        verticesNumber = 2310;
+        double[] CRUISER_VERTS = new double[10242];
+        ModelLoader.loadContent(CRUISER_VERTS, "nerenide_cruiser_verts.txt", am);
+        mVertBuff = fillBuffer(CRUISER_VERTS);
+        verticesNumber = 3414;
     }
 
     private void setTexCoords() {
-        double[] FIGHTER_TEX_COORDS = new double[4620];
-        ModelLoader.loadContent(FIGHTER_TEX_COORDS, "bohregon_fighter_texCoords.txt", am);
-        mTexCoordBuff = fillBuffer(FIGHTER_TEX_COORDS);
+        double[] CRUISER_TEX_COORDS = new double[6828];
+        ModelLoader.loadContent(CRUISER_TEX_COORDS, "nerenide_cruiser_texCoords.txt", am);
+        mTexCoordBuff = fillBuffer(CRUISER_TEX_COORDS);
     }
 
     private void setNorms()
     {
-        double[] FIGHTER_NORMS = new double[6930];
-        ModelLoader.loadContent(FIGHTER_NORMS, "bohregon_fighter_norms.txt", am);
-        mNormBuff = fillBuffer(FIGHTER_NORMS);
+        double[] CRUISER_NORMS = new double[10242];
+        ModelLoader.loadContent(CRUISER_NORMS, "nerenide_cruiser_norms.txt", am);
+        mNormBuff = fillBuffer(CRUISER_NORMS);
     }
 
     public int getNumObjectIndex()
@@ -58,13 +53,11 @@ public class FighterBohregon extends MeshObject
         return indicesNumber;
     }
 
-
     @Override
     public int getNumObjectVertex()
     {
         return verticesNumber;
     }
-
 
     @Override
     public Buffer getBuffer(BUFFER_TYPE bufferType)
@@ -88,4 +81,5 @@ public class FighterBohregon extends MeshObject
 
         return result;
     }
+
 }
