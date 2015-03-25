@@ -6,9 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.util.List;
+
+import imac.supernova.datamodel.Game;
+import imac.supernova.datamodel.ship.Ship;
 
 
 /**
@@ -24,66 +29,50 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
     private View v;
 
     private TextView ship_name;
-
-    private TextView energy_units;
-    private TextView power_units;
+    private TextView max_health_bar;
+    private TextView health_bar;
+    private TextView health_units;
+    private TextView max_damage_bar;
+    private TextView damage_bar;
+    private TextView damage_units;
+    private TextView max_move_bar;
+    private TextView move_bar;
     private TextView move_units;
 
-    private RelativeLayout.LayoutParams params_energy;
-    private RelativeLayout.LayoutParams params_power;
+    private RelativeLayout.LayoutParams params_health;
+    private RelativeLayout.LayoutParams params_max_health;
+    private RelativeLayout.LayoutParams params_damage;
+    private RelativeLayout.LayoutParams params_max_damage;
     private RelativeLayout.LayoutParams params_move;
+    private RelativeLayout.LayoutParams params_max_move;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
+    private Button button_buy_shield;
+    private Button button_buy_weapon;
 
-    // TODO: Rename and change types of parameters
-    //private String mParam1;
-    //private String mParam2;
+    public Game currentGame;
+    public List<Ship> playerFleet;
 
-    //private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param //param1 Parameter 1.
-     * @param //param2 Parameter 2.
-     * @return A new instance of fragment FleetDashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    /*public static FleetDashboardFragment newInstance(String param1, String param2) {
-        FleetDashboardFragment fragment = new FleetDashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
 
     public FleetDashboardFragment() {
         // Required empty public constructor
     }
 
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);
         // Get textview to insert data
         ship_name = (TextView) v.findViewById(R.id.ship_name);
-        energy_units = (TextView) v.findViewById(R.id.energy_units);
-        power_units = (TextView) v.findViewById(R.id.power_units);
+        max_health_bar = (TextView) v.findViewById(R.id.max_health_bar);
+        health_bar = (TextView) v.findViewById(R.id.health_bar);
+        health_units = (TextView) v.findViewById(R.id.health_units);
+        max_damage_bar = (TextView) v.findViewById(R.id.max_damage_bar);
+        damage_bar = (TextView) v.findViewById(R.id.damage_bar);
+        damage_units = (TextView) v.findViewById(R.id.damage_units);
+        max_move_bar = (TextView) v.findViewById(R.id.max_move_bar);
+        move_bar = (TextView) v.findViewById(R.id.move_bar);
         move_units = (TextView) v.findViewById(R.id.move_units);
 
         // Button #1
@@ -107,115 +96,144 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
         Button button_fighter_3 = (Button) v.findViewById(R.id.button_fighter_3);
         button_fighter_3.setOnClickListener(this);
 
+        // Button buy a shield
+        button_buy_shield = (Button) v.findViewById(R.id.button_buy_shield);
+        button_buy_shield.setOnClickListener(this);
+        // Button buy a weapon
+        button_buy_weapon = (Button) v.findViewById(R.id.button_buy_weapon);
+        button_buy_weapon.setOnClickListener(this);
+
+        // Get the current game and the current player's fleet
+        currentGame = ((MainActivity) getActivity()).game;
+        playerFleet = currentGame.getFleetOfCurrentPlayer();
+        // Init the display on first ship
+        ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString());
+        updateAllFeaturesDisplay(0);
+
         return v;
-        /*Button button = (Button) findViewById(R.id.button_test);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Do something in response to button click
-            }
-        });
-        return inflater.inflate(R.layout.fragment_fleet_dashboard, container, false);*/
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            /* Navigation */
             case R.id.button_cruiser:
-                ship_name.setText("Cruiser");
-                params_energy = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString());
+                updateAllFeaturesDisplay(0);
                 break;
             case R.id.button_bomber_1:
-                ship_name.setText("Bomber #1");
-                params_energy = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(1).getClass().getSimpleName().toString() + " #1");
+                updateAllFeaturesDisplay(1);
                 break;
             case R.id.button_bomber_2:
-                ship_name.setText("Bomber #2");
-                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(150, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(2).getClass().getSimpleName().toString() + " #2");
+                updateAllFeaturesDisplay(2);
                 break;
             case R.id.button_fighter_1:
-                ship_name.setText("Fighter #1");
-                params_energy = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(3).getClass().getSimpleName().toString() + " #1");
+                updateAllFeaturesDisplay(3);
                 break;
             case R.id.button_fighter_2:
-                ship_name.setText("Fighter #2");
-                params_energy = new RelativeLayout.LayoutParams(20, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(100, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(200, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(4).getClass().getSimpleName().toString() + " #2");
+                updateAllFeaturesDisplay(4);
                 break;
             case R.id.button_fighter_3:
-                ship_name.setText("Fighter #3");
-                params_energy = new RelativeLayout.LayoutParams(90, RelativeLayout.LayoutParams.MATCH_PARENT);
-                energy_units.setLayoutParams(params_energy);
-                params_power = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.MATCH_PARENT);
-                power_units.setLayoutParams(params_power);
-                params_move = new RelativeLayout.LayoutParams(80, RelativeLayout.LayoutParams.MATCH_PARENT);
-                move_units.setLayoutParams(params_move);
+                ship_name.setText(playerFleet.get(5).getClass().getSimpleName().toString() + " #3");
+                updateAllFeaturesDisplay(5);
                 break;
+
+            /* Buy buttons */
+            case R.id.button_buy_shield:
+                playerFleet.get((Integer) v.getTag()).buyShield();
+                updateHealthDisplay((Integer) v.getTag());
+                button_buy_shield.setVisibility(View.INVISIBLE);
+                break;
+            case R.id.button_buy_weapon:
+                playerFleet.get((Integer) v.getTag()).buyWeapon();
+                updateDamageDisplay((Integer) v.getTag());
+                button_buy_weapon.setVisibility(View.INVISIBLE);
+                break;
+
             default:
                 break;
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    /*public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    /**
+     * Update the display of ship's data on click on buttons
+     */
+    // Health
+    public void updateHealthDisplay(int id) {
+        params_max_health = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getMaxHealth()*50), RelativeLayout.LayoutParams.MATCH_PARENT);
+        max_health_bar.setLayoutParams(params_max_health);
+        if(playerFleet.get(id).getHealth() < playerFleet.get(id).getMaxHealth()) {
+            params_health = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getHealth()*50), RelativeLayout.LayoutParams.MATCH_PARENT);
+            health_bar.setLayoutParams(params_health);
         }
-    }*/
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+        else {
+            health_bar.setLayoutParams(params_max_health);
         }
-    }*/
+        health_units.setText(playerFleet.get(id).getHealth()+"/"+playerFleet.get(id).getMaxHealth());
+    }
 
-    /*@Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
+    // Damage
+    public void updateDamageDisplay(int id) {
+        params_max_damage = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getMaxDamage()*150), RelativeLayout.LayoutParams.MATCH_PARENT);
+        max_damage_bar.setLayoutParams(params_max_damage);
+        if(playerFleet.get(id).getDamage() <= playerFleet.get(id).getMaxDamage()) {
+            params_damage = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getDamage()*150), RelativeLayout.LayoutParams.MATCH_PARENT);
+            damage_bar.setLayoutParams(params_damage);
+        }
+        else if(playerFleet.get(id).getDamage() > playerFleet.get(id).getMaxDamage()) {
+            damage_bar.setLayoutParams(params_max_damage);
+        }
+        damage_units.setText(playerFleet.get(id).getDamage()+"/"+playerFleet.get(id).getMaxDamage());
+    }
+
+    // Move
+    public void updateMoveDisplay(int id) {
+        params_max_move = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getMaxMove()*60), RelativeLayout.LayoutParams.MATCH_PARENT);
+        max_move_bar.setLayoutParams(params_max_move);
+        if(playerFleet.get(id).getMove() <= playerFleet.get(id).getMaxMove()) {
+            params_move = new RelativeLayout.LayoutParams(convertToDP(playerFleet.get(id).getMaxMove()*60), RelativeLayout.LayoutParams.MATCH_PARENT);
+            move_bar.setLayoutParams(params_move);
+        }
+        else if(playerFleet.get(id).getMove() > playerFleet.get(id).getMaxMove()) {
+            move_bar.setLayoutParams(params_max_move);
+        }
+        move_units.setText(playerFleet.get(id).getMove()+"/"+playerFleet.get(id).getMaxMove());
+    }
+
+    // All
+    public void updateAllFeaturesDisplay(int id) {
+        updateHealthDisplay(id);
+        updateDamageDisplay(id);
+        updateMoveDisplay(id);
+
+        // Button buy id & visibility
+        if(playerFleet.get(id).getHasShield()) {
+            button_buy_shield.setVisibility(View.INVISIBLE);
+        }
+        else {
+            button_buy_shield.setVisibility(View.VISIBLE);
+            button_buy_shield.setTag(id);
+        }
+
+        if(playerFleet.get(id).getHasWeapon()) {
+            button_buy_weapon.setVisibility(View.INVISIBLE);
+        }
+        else {
+            button_buy_weapon.setVisibility(View.VISIBLE);
+            button_buy_weapon.setTag(id);
+        }
+    }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Convert pixels to dp
      */
-    /*public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }*/
+    public int convertToDP(int pixels) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (pixels * scale + 0.5f);
+    }
 
 }

@@ -15,8 +15,10 @@ public class Ship {
     Player owner;
     int health;
     int maxHealth;
-    int maxMove;
     int damage;
+    int maxDamage;
+    int move;
+    int maxMove;
     int range;
     boolean hasWeapon;
     boolean hasShield;
@@ -42,13 +44,6 @@ public class Ship {
         return id;
     }
 
-    public void buyWeapon(){
-        if(this.getOwner().getCredit() > 0){
-            this.getOwner().spendCredit();
-            installWeapon();
-        }
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -58,15 +53,17 @@ public class Ship {
         return damage;
     }
 
-    public void buyShield(){
-        if(this.getOwner().getCredit() > 0){
-            this.getOwner().spendCredit();
-            installShield();
-        }
-    }
-
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    // Max Damage
+    public int getMaxDamage() {
+        return maxDamage;
+    }
+
+    public void setMaxDamage(int maxDamage) {
+        this.maxDamage = maxDamage;
     }
 
     // Health
@@ -83,39 +80,17 @@ public class Ship {
         return maxHealth;
     }
 
-    public void attackShip(Ship enemy){
-
-        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
-                +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
-
-        if(enemy.hasShield){
-            enemy.hasShield = false;
-            System.out.println("Bouclier détruit sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
-        }
-        enemy.setHealth(enemy.getHealth() - this.damage);
-        if(enemy.health <= 0){
-            enemy.death();
-        }
-    }
-
-    public void attackAsteroid(Asteroid asteroid){
-        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
-                +" sur le "+asteroid.getClass().getSimpleName().toString());
-
-        // TODO appeler carte exploration pour remplir une nouvelle case
-        this.owner.earnCredit();
-    }
-
-    public void attackAlienWreckage(AlienWreckage wreckage){
-        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
-                +" sur le "+wreckage.getClass().getSimpleName().toString());
-
-        // TODO donner une carte alien au joueur
-        // TODO appeler carte exploration pour remplir une nouvelle case
-    }
-
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
+    }
+
+    // Move
+    public int getMove() {
+        return move;
+    }
+
+    public void setMove(int move) {
+        this.move = move;
     }
 
     // Max Move
@@ -163,6 +138,83 @@ public class Ship {
         this.hasShield = hasShield;
     }
 
+    /** Actions */
+    // Buy shield
+    public void buyShield(){
+        //if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installShield();
+        //}
+    }
+
+    public void buyWeapon(){
+        //if(this.getOwner().getCredit() > 0){
+            this.getOwner().spendCredit();
+            installWeapon();
+        //}
+    }
+
+    /**
+     * Install a weapon
+     */
+    public void installWeapon() {
+        if(!this.hasWeapon){
+            this.hasWeapon = true;
+            this.damage +=1;
+            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+        }
+        else {
+            System.out.println("Vous avez déjà installé une arme ! ");
+        }
+    }
+
+    /**
+     * Install a shield
+     */
+    public void installShield() {
+        if(!this.hasShield) {
+            this.hasShield = true;
+            this.health += 1;
+            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
+        }
+        else {
+            System.out.println("Vous avez déjà installé un bouclier ! ");
+        }
+    }
+
+    // Attack ship
+    public void attackShip(Ship enemy) {
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+
+        if(enemy.hasShield){
+            enemy.hasShield = false;
+            System.out.println("Bouclier détruit sur le "+enemy.getClass().getSimpleName().toString() +" "+ enemy.getOwner().getRace().toString() + " de " +enemy.getOwner().getName());
+        }
+        enemy.setHealth(enemy.getHealth() - this.damage);
+        if(enemy.health <= 0){
+            enemy.death();
+        }
+    }
+
+    // Attack asteroid
+    public void attackAsteroid(Asteroid asteroid){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+asteroid.getClass().getSimpleName().toString());
+
+        // TODO appeler carte exploration pour remplir une nouvelle case
+        this.owner.earnCredit();
+    }
+
+    // Attack alien wreckage
+    public void attackAlienWreckage(AlienWreckage wreckage){
+        System.out.println("Attaque lancée du "+ this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName()
+                +" sur le "+wreckage.getClass().getSimpleName().toString());
+
+        // TODO donner une carte alien au joueur
+        // TODO appeler carte exploration pour remplir une nouvelle case
+    }
+
     /**
      * toString()
      * @return String
@@ -184,35 +236,6 @@ public class Ship {
      */
     public void regenerateHealth() {
         this.health = this.maxHealth;
-    }
-
-    /**
-     * Install a weapon
-     */
-    public void installWeapon() {
-        if(!this.hasWeapon){
-            this.hasWeapon = true;
-            this.damage +=1;
-            System.out.println("Arme installée sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-
-        }
-        else {
-            System.out.println("Vous avez déjà installé une arme ! ");
-        }
-    }
-
-    /**
-     * Install a shield
-     */
-    public void installShield() {
-        if(!this.hasShield) {
-            this.hasShield = true;
-            this.health += 1;
-            System.out.println("Bouclier installé sur le " + this.getClass().getSimpleName().toString() +" "+ this.getOwner().getRace().toString() + " de " +this.getOwner().getName());
-        }
-        else {
-            System.out.println("Vous avez déjà installé un bouclier ! ");
-        }
     }
 
     /**

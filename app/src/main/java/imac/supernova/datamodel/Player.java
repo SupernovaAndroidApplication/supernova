@@ -1,5 +1,7 @@
 package imac.supernova.datamodel;
 
+import imac.supernova.datamodel.ship.Bomber;
+import imac.supernova.datamodel.ship.Cruiser;
 import imac.supernova.datamodel.ship.Fighter;
 import imac.supernova.datamodel.ship.Ship;
 
@@ -19,16 +21,21 @@ public class Player {
     public Player(String i_name, Race i_race){
         System.out.println("Création d'un joueur");
         name = new String();
-        fleet = new ArrayList<Ship>();
         name = i_name;
         race = i_race;
-        for(int i=0;i<6;i++){
+
+        fleet = new ArrayList<Ship>();
+        fleet.add(new Cruiser(this));
+        fleet.add(new Bomber(this));
+        fleet.add(new Bomber(this));
+        fleet.add(new Fighter(this));
+        fleet.add(new Fighter(this));
+        fleet.add(new Fighter(this));
+        /*for(int i=0;i<6;i++){
             Fighter f = new Fighter(this);
             this.fleet.add(f);
             System.out.println(f.toString());
-
-        }
-
+        }*/
     }
 
     public String printFleet(){
@@ -70,6 +77,5 @@ public class Player {
         credit -= 1;
         System.out.println("Crédit: "+credit);
     }
-
 
 }
