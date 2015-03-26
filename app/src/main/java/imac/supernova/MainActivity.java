@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Start a new game
         game = new Game();
-        game.addPlayer(new Player("Angéline", Race.TERRAN));
+        game.addPlayer(new Player("Vincent", Race.TERRAN));
         game.addPlayer(new Player("Clara", Race.NERENIDE));
         game.addPlayer(new Player("Baptiste", Race.BOHREGON));
         game.addPlayer(new Player("Jérôme", Race.YTTRIKT));

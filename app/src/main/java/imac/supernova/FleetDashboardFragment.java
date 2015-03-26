@@ -1,5 +1,7 @@
 package imac.supernova;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -167,9 +169,8 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
 
             /* Attack buttons */
             case R.id.button_attack_enemy:
-                /*Fragment fragment = new EnemyFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit();*/
+                Intent intent = new Intent(getActivity(), EnemiesListActivity.class);
+                getActivity().startActivity(intent);
                 break;
             case R.id.button_attack_asteroid:
                 break;
