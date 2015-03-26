@@ -34,11 +34,14 @@ import imac.supernova.ARVuforia.utils.LoadingDialogHandler;
 import imac.supernova.ARVuforia.utils.SampleApplicationGLView;
 import imac.supernova.ARVuforia.utils.Texture;
 import imac.supernova.R;
+import imac.supernova.datamodel.Game;
 
 // The main activity for the FrameMarkers sample. 
 public class FrameMarkers extends Activity implements SampleApplicationControl
 {
     private static final String LOGTAG = "FrameMarkers";
+
+    Game game;
     
     SampleApplicationSession vuforiaAppSession;
     
@@ -63,6 +66,8 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
     {
         Log.d(LOGTAG, "onCreate");
         super.onCreate(savedInstanceState);
+
+        game = (Game) getIntent().getSerializableExtra("Game");
         
         vuforiaAppSession = new SampleApplicationSession(this);
         startLoadingAnimation();
@@ -120,18 +125,31 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_fighter.jpg", getAssets()));    // Fighter
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Cruiser
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Bomber
+
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_fighter.jpg", getAssets()));      // Fighter
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Cruiser
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Bomber
+
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+
         mTextures.add(Texture.loadTextureFromApk("FrameMarkers/asteroid.jpg", getAssets()));            // Asteroid
 
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/life_2.png",getAssets()));
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_2.png",getAssets()));              // Life 2 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_1.png",getAssets()));              // Life 2 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_0.png",getAssets()));              // Life 2 max
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_3.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_2.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_1.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_0.png",getAssets()));              // Life 3 max
+
+
     }
 
     // Called when the activity will start interacting with the user.

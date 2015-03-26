@@ -1,5 +1,7 @@
 package imac.supernova.datamodel.ship;
 
+import java.io.Serializable;
+
 import imac.supernova.datamodel.AlienWreckage;
 import imac.supernova.datamodel.Asteroid;
 import imac.supernova.datamodel.Race;
@@ -9,7 +11,7 @@ import imac.supernova.datamodel.Player;
 /**
  * Created by Clara on 05/02/2015.
  */
-public class Ship {
+public class Ship implements Serializable{
 
     int id;
     Player owner;

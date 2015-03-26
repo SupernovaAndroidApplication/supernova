@@ -4,13 +4,14 @@ import imac.supernova.datamodel.ship.Bomber;
 import imac.supernova.datamodel.ship.Cruiser;
 import imac.supernova.datamodel.ship.Ship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Clara on 05/02/2015.
  */
-public class Game {
+public class Game implements Serializable{
 
     ArrayList<Player> players;
     int lap;
@@ -22,10 +23,17 @@ public class Game {
         currentPlayer = 0;
     }
 
+    /**
+     * Add a player to the ArrayList
+     * @param player the new player to add
+     */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
+    /**
+     * Change the current player and compute the current lap
+     */
     public void nextPlayer(){
         currentPlayer = lap % players.size();
         ++lap;
@@ -55,12 +63,25 @@ public class Game {
         }
     }
 
+    /**
+     *  Gets the fleet of the current player
+     * @return The list of all Ship of the current player
+     */
     public List<Ship> getFleetOfCurrentPlayer(){
         return players.get(currentPlayer).getFleet();
     }
 
+    /**
+     * Gets all the players
+     * @return gets the players
+     */
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    public int getNbPlayers()
+    {
+        return players.size();
     }
 
     public Player getPlayer(int index){

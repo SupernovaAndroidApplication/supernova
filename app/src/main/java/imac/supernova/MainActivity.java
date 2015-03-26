@@ -219,6 +219,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case 3:
                 Intent intent = new Intent(this, FrameMarkers.class);
+                intent.putExtra("Game", game);
                 startActivity(intent);
                 break;
             default:

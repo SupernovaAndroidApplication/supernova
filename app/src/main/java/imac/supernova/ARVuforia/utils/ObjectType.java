@@ -42,4 +42,13 @@ public class ObjectType {
 
     public static final int ASTEROID_T = 12;
 
+    public static final int LIFE_2_2_T = 13;
+    public static final int LIFE_2_1_T = 14;
+    public static final int LIFE_2_0_T = 15;
+
+    public static final int LIFE_3_3_T = 16;
+    public static final int LIFE_3_2_T = 17;
+    public static final int LIFE_3_1_T = 18;
+    public static final int LIFE_3_0_T = 19;
+
 }

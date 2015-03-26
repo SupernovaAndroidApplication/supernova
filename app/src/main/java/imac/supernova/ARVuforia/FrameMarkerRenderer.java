@@ -43,6 +43,9 @@ import imac.supernova.ARVuforia.utils.ObjectType;
 import imac.supernova.ARVuforia.utils.PlaneObject;
 import imac.supernova.ARVuforia.utils.SampleUtils;
 import imac.supernova.ARVuforia.utils.Texture;
+import imac.supernova.datamodel.Player;
+import imac.supernova.datamodel.Race;
+import imac.supernova.datamodel.ship.Ship;
 
 
 // The renderer class for the FrameMarkers sample. 
@@ -97,7 +100,15 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     // Asteroid
     private Asteroid asteroid;
 
+    // Life
     private PlaneObject plane = new PlaneObject();
+
+    // Player
+    int nbPlayers;
+    Player playerTerran;
+    Player playerNerenide;
+    Player playerBohregon;
+    Player playerYttrikt;
 
     public FrameMarkerRenderer(FrameMarkers activity,SampleApplicationSession session)
     {
@@ -111,8 +122,30 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
         bomberTerran = new BomberTerran(am);
         fighterNerenide = new FighterNerenide(am);
         bomberNerenide = new BomberNerenide(am);
-
+        // Asteroid
         asteroid = new Asteroid(am);
+
+        // Players
+        nbPlayers = mActivity.game.getNbPlayers();
+        for(int idxPlayer = 0; idxPlayer < nbPlayers; ++idxPlayer)
+        {
+            if(mActivity.game.getPlayer(idxPlayer).getRace() == Race.BOHREGON)
+            {
+                playerBohregon = mActivity.game.getPlayer(idxPlayer);
+            }
+            else if(mActivity.game.getPlayer(idxPlayer).getRace() == Race.TERRAN)
+            {
+                playerTerran = mActivity.game.getPlayer(idxPlayer);
+            }
+            else if(mActivity.game.getPlayer(idxPlayer).getRace() == Race.NERENIDE)
+            {
+                playerNerenide = mActivity.game.getPlayer(idxPlayer);
+            }
+            else if(mActivity.game.getPlayer(idxPlayer).getRace() == Race.YTTRIKT)
+            {
+                playerYttrikt = mActivity.game.getPlayer(idxPlayer);
+            }
+        }
 
         vuforiaAppSession = session;
     }
@@ -184,6 +217,8 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
 
     void renderFrame()
     {
+        System.out.println("BOUCLIER "+ playerTerran.getFleet().get(3).getHasShield());
+
         // Clear color and depth buffer
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         
@@ -245,7 +280,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
             {
                 case ObjectType.BOHREGON_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = selectLifeTexture(playerBohregon.getShipAt(0));
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -259,7 +294,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_FIGHTER+1:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = selectLifeTexture(playerBohregon.getShipAt(1));
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -273,7 +308,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_FIGHTER+2:
                     shipTexture =  mTextures.get(ObjectType.BOHR_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex); //TODO communiquer avec le modele pour savoir combien de vie restante / vie totale
+                    lifeTexture = selectLifeTexture(playerBohregon.getShipAt(2));
 
                     verticesShip = fighterBohregon.getVertices();
                     normalsShip = fighterBohregon.getNormals();
@@ -291,7 +326,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;*/
                 case ObjectType.BOHREGON_BOMBER:
                     shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerBohregon.getShipAt(4));
 
                     verticesShip = bomberBohregon.getVertices();
                     normalsShip = bomberBohregon.getNormals();
@@ -305,7 +340,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.BOHREGON_BOMBER+1:
                     shipTexture =  mTextures.get(ObjectType.BOHR_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerBohregon.getShipAt(5));
 
                     verticesShip = bomberBohregon.getVertices();
                     normalsShip = bomberBohregon.getNormals();
@@ -319,7 +354,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.TERRAN_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerTerran.getShipAt(0));
 
                     verticesShip = fighterTerran.getVertices();
                     normalsShip = fighterTerran.getNormals();
@@ -333,7 +368,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.TERRAN_FIGHTER+1:
                     shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerTerran.getShipAt(1));
 
                     verticesShip = fighterTerran.getVertices();
                     normalsShip = fighterTerran.getNormals();
@@ -347,7 +382,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.TERRAN_FIGHTER+2:
                     shipTexture =  mTextures.get(ObjectType.TER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerTerran.getShipAt(2));
 
                     verticesShip = fighterTerran.getVertices();
                     normalsShip = fighterTerran.getNormals();
@@ -365,7 +400,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;*/
                 case ObjectType.TERRAN_BOMBER:
                     shipTexture =  mTextures.get(ObjectType.TER_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerTerran.getShipAt(4));
 
                     verticesShip = bomberTerran.getVertices();
                     normalsShip = bomberTerran.getNormals();
@@ -379,7 +414,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.TERRAN_BOMBER+1:
                     shipTexture =  mTextures.get(ObjectType.TER_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerTerran.getShipAt(5));
 
                     verticesShip = bomberTerran.getVertices();
                     normalsShip = bomberTerran.getNormals();
@@ -393,7 +428,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.NERENIDE_FIGHTER:
                     shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerNerenide.getShipAt(0));
 
                     verticesShip = fighterNerenide.getVertices();
                     normalsShip = fighterNerenide.getNormals();
@@ -407,7 +442,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.NERENIDE_FIGHTER+1:
                     shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerNerenide.getShipAt(1));
 
                     verticesShip = fighterNerenide.getVertices();
                     normalsShip = fighterNerenide.getNormals();
@@ -421,7 +456,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.NERENIDE_FIGHTER+2:
                     shipTexture =  mTextures.get(ObjectType.NER_FIGHTER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerNerenide.getShipAt(2));
 
                     verticesShip = fighterNerenide.getVertices();
                     normalsShip = fighterNerenide.getNormals();
@@ -439,7 +474,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
 //                    break;
                 case ObjectType.NERENIDE_BOMBER:
                     shipTexture =  mTextures.get(ObjectType.NER_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerNerenide.getShipAt(4));
 
                     verticesShip = bomberNerenide.getVertices();
                     normalsShip = bomberNerenide.getNormals();
@@ -453,7 +488,7 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
                     break;
                 case ObjectType.NERENIDE_BOMBER+1:
                     shipTexture =  mTextures.get(ObjectType.NER_BOMBER_T);
-                    lifeTexture = mTextures.get(lifeTextureIndex);
+                    lifeTexture = selectLifeTexture(playerNerenide.getShipAt(5));
 
                     verticesShip = bomberNerenide.getVertices();
                     normalsShip = bomberNerenide.getNormals();
@@ -701,6 +736,30 @@ public class FrameMarkerRenderer implements GLSurfaceView.Renderer
     public void setTextures(Vector<Texture> textures)
     {
         mTextures = textures;
+    }
+
+    private Texture selectLifeTexture(Ship ship)
+    {
+        if(ship.getMaxHealth() == 3)
+        {
+            if(ship.getHealth() == 3)
+                return mTextures.get(ObjectType.LIFE_3_3_T);
+            else if(ship.getHealth() == 2)
+                return mTextures.get(ObjectType.LIFE_3_2_T);
+            else if(ship.getHealth() == 1)
+                return mTextures.get(ObjectType.LIFE_3_1_T);
+            else
+                return mTextures.get(ObjectType.LIFE_3_0_T);
+        }
+        else
+        {
+            if(ship.getHealth() == 2)
+                return mTextures.get(ObjectType.LIFE_2_2_T);
+            else if(ship.getHealth() == 1)
+                return mTextures.get(ObjectType.LIFE_2_1_T);
+            else
+                return mTextures.get(ObjectType.LIFE_2_0_T);
+        }
     }
 
     private void animateLifeHUD(float[] modelViewMatrix)
