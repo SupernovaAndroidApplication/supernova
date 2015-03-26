@@ -14,10 +14,13 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
+import android.os.Handler;
 
 import com.qualcomm.vuforia.CameraDevice;
 import com.qualcomm.vuforia.Marker;
@@ -31,11 +34,14 @@ import imac.supernova.ARVuforia.utils.LoadingDialogHandler;
 import imac.supernova.ARVuforia.utils.SampleApplicationGLView;
 import imac.supernova.ARVuforia.utils.Texture;
 import imac.supernova.R;
+import imac.supernova.datamodel.Game;
 
 // The main activity for the FrameMarkers sample. 
 public class FrameMarkers extends Activity implements SampleApplicationControl
 {
     private static final String LOGTAG = "FrameMarkers";
+
+    Game game;
     
     SampleApplicationSession vuforiaAppSession;
     
@@ -43,6 +49,8 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
     private SampleApplicationGLView mGlView;
     // Our renderer:
     private FrameMarkerRenderer mRenderer;
+
+    private GestureDetector mGestureDetector;
     
     // The textures we will use for rendering:
     private Vector<Texture> mTextures;
@@ -58,10 +66,14 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
     {
         Log.d(LOGTAG, "onCreate");
         super.onCreate(savedInstanceState);
+
+        game = (Game) getIntent().getSerializableExtra("Game");
         
         vuforiaAppSession = new SampleApplicationSession(this);
         startLoadingAnimation();
         vuforiaAppSession.initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        mGestureDetector = new GestureDetector(this, new GestureListener());
         
         // Load any sample specific textures:
         mTextures = new Vector<Texture>();
@@ -69,15 +81,75 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
         
         mIsDroidDevice = android.os.Build.MODEL.toLowerCase().startsWith("droid");
     }
+
+    // Process Single Tap event to trigger autofocus
+    private class GestureListener extends
+            GestureDetector.SimpleOnGestureListener
+    {
+        // Used to set autofocus one second after a manual focus is triggered
+        private final Handler autofocusHandler = new Handler();
+
+
+        @Override
+        public boolean onDown(MotionEvent e)
+        {
+            return true;
+        }
+
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e)
+        {
+            // Generates a Handler to trigger autofocus
+            // after 1 second
+            autofocusHandler.postDelayed(new Runnable()
+            {
+                public void run()
+                {
+                    boolean result = CameraDevice.getInstance().setFocusMode(
+                            CameraDevice.FOCUS_MODE.FOCUS_MODE_TRIGGERAUTO);
+
+                    if (!result)
+                        Log.e("SingleTapUp", "Unable to trigger focus");
+                }
+            }, 1000L);
+
+            return true;
+        }
+    }
     
     // We want to load specific textures from the APK, which we will later use
     // for rendering.
     private void loadTextures()
     {
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/testTextureCube.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_C.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_A.png",getAssets()));
-        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/letter_R.png",getAssets()));
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_fighter.jpg", getAssets()));    // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Bohregon_bomber.jpg", getAssets()));     // Bomber
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_fighter.jpg", getAssets()));      // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Terran_bomber.jpg", getAssets()));       // Bomber
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_fighter.jpg", getAssets()));    // Fighter
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Cruiser
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/Nerenide_bomber.jpg", getAssets()));     // Bomber
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/asteroid.jpg", getAssets()));            // Asteroid
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_2.png",getAssets()));              // Life 2 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_1.png",getAssets()));              // Life 2 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_2_0.png",getAssets()));              // Life 2 max
+
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_3.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_2.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_1.png",getAssets()));              // Life 3 max
+        mTextures.add(Texture.loadTextureFromApk("FrameMarkers/HUD_3_0.png",getAssets()));              // Life 3 max
+
+
     }
 
     // Called when the activity will start interacting with the user.
@@ -229,36 +301,18 @@ public class FrameMarkers extends Activity implements SampleApplicationControl
         if (markerTracker == null)
             return false;
         
-        dataSet = new Marker[4];
-        
-        dataSet[0] = markerTracker.createFrameMarker(0, "MarkerQ", new Vec2F(50, 50));
-        if (dataSet[0] == null)
+        dataSet = new Marker[512];
+
+        for(int i=0; i < 512; ++i)
         {
-            Log.e(LOGTAG, "Failed to create frame marker Q.");
-            return false;
+            dataSet[i] = markerTracker.createFrameMarker(i, "Marker"+i, new Vec2F(50, 50));
+            if (dataSet[i] == null)
+            {
+                Log.e(LOGTAG, "Failed to create frame marker"+i);
+                return false;
+            }
         }
-        
-        dataSet[1] = markerTracker.createFrameMarker(1, "MarkerC", new Vec2F(50, 50));
-        if (dataSet[1] == null)
-        {
-            Log.e(LOGTAG, "Failed to create frame marker C.");
-            return false;
-        }
-        
-        dataSet[2] = markerTracker.createFrameMarker(2, "MarkerA", new Vec2F(50, 50));
-        if (dataSet[2] == null)
-        {
-            Log.e(LOGTAG, "Failed to create frame marker A.");
-            return false;
-        }
-        
-        dataSet[3] = markerTracker.createFrameMarker(3, "MarkerR", new Vec2F(50, 50));
-        if (dataSet[3] == null)
-        {
-            Log.e(LOGTAG, "Failed to create frame marker R.");
-            return false;
-        }
-        
+
         Log.i(LOGTAG, "Successfully initialized MarkerTracker.");
         return true;
     }

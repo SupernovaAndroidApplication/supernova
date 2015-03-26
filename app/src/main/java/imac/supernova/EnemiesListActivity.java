@@ -42,7 +42,7 @@ public class EnemiesListActivity extends ActionBarActivity {
         initList();
 
         // We get the ListView component from the layout
-        ListView lv = (ListView) findViewById(R.id.listView);
+        ListView lv1 = (ListView) findViewById(R.id.listView_player1);
 
         // This is a simple adapter that accepts as parameter
         // Context
@@ -50,9 +50,22 @@ public class EnemiesListActivity extends ActionBarActivity {
         // The row layout that is used during the row creation
         // The keys used to retrieve the data
         // The View id used to show the data. The key number and the view id must match
-        SimpleAdapter simpleAdpt = new SimpleAdapter(this, enemiesList, R.layout.enemies_list_item, new String[] {"planet"}, new int[] {R.id.textViewItem});
+        SimpleAdapter simpleAdpt1 = new SimpleAdapter(this, enemiesList, R.layout.enemies_list_item, new String[] {"planet"}, new int[] {R.id.textViewItem});
 
-        lv.setAdapter(simpleAdpt);
+        lv1.setAdapter(simpleAdpt1);
+
+        // We get the ListView component from the layout
+        ListView lv2 = (ListView) findViewById(R.id.listView_player2);
+
+        // This is a simple adapter that accepts as parameter
+        // Context
+        // Data list
+        // The row layout that is used during the row creation
+        // The keys used to retrieve the data
+        // The View id used to show the data. The key number and the view id must match
+        SimpleAdapter simpleAdpt2 = new SimpleAdapter(this, enemiesList, R.layout.enemies_list_item, new String[] {"planet"}, new int[] {R.id.textViewItem});
+
+        lv2.setAdapter(simpleAdpt2);
 
        /* super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enemies_list);*/

@@ -5,13 +5,14 @@ import imac.supernova.datamodel.ship.Cruiser;
 import imac.supernova.datamodel.ship.Fighter;
 import imac.supernova.datamodel.ship.Ship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Clara on 02/02/2015.
  */
-public class Player {
+public class Player implements Serializable{
 
     String name;
     ArrayList<Ship> fleet;
@@ -25,12 +26,12 @@ public class Player {
         race = i_race;
 
         fleet = new ArrayList<Ship>();
+        fleet.add(new Fighter(this));
+        fleet.add(new Fighter(this));
+        fleet.add(new Fighter(this));
         fleet.add(new Cruiser(this));
         fleet.add(new Bomber(this));
         fleet.add(new Bomber(this));
-        fleet.add(new Fighter(this));
-        fleet.add(new Fighter(this));
-        fleet.add(new Fighter(this));
         /*for(int i=0;i<6;i++){
             Fighter f = new Fighter(this);
             this.fleet.add(f);
@@ -78,4 +79,18 @@ public class Player {
         System.out.println("Crédit: "+credit);
     }
 
+    public int getHealthOfShip(int indexShip)
+    {
+        return fleet.get(indexShip).getHealth();
+    }
+
+    public int getMaxHealthOfShip(int indexShip)
+    {
+        return fleet.get(indexShip).getMaxHealth();
+    }
+
+    public Ship getShipAt(int idx)
+    {
+        return fleet.get(idx);
+    }
 }
