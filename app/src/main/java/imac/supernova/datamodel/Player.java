@@ -25,13 +25,14 @@ public class Player implements Serializable{
         name = i_name;
         race = i_race;
 
+        int i = 0;
         fleet = new ArrayList<Ship>();
-        fleet.add(new Fighter(this));
-        fleet.add(new Fighter(this));
-        fleet.add(new Fighter(this));
-        fleet.add(new Cruiser(this));
-        fleet.add(new Bomber(this));
-        fleet.add(new Bomber(this));
+        fleet.add(new Fighter(this, i++));
+        fleet.add(new Fighter(this, i++));
+        fleet.add(new Fighter(this, i++));
+        fleet.add(new Cruiser(this, i++));
+        fleet.add(new Bomber(this, i++));
+        fleet.add(new Bomber(this, i++));
         /*for(int i=0;i<6;i++){
             Fighter f = new Fighter(this);
             this.fleet.add(f);

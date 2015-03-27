@@ -131,27 +131,27 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
         switch (v.getId()) {
             /* Navigation */
             case R.id.button_cruiser:
-                ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString());
+                ship_name.setText(playerFleet.get(0).getClass().getSimpleName().toString() + " #1");
                 updateAllFeaturesDisplay(0);
                 break;
             case R.id.button_bomber_1:
-                ship_name.setText(playerFleet.get(1).getClass().getSimpleName().toString() + " #1");
+                ship_name.setText(playerFleet.get(1).getClass().getSimpleName().toString() + " #2");
                 updateAllFeaturesDisplay(1);
                 break;
             case R.id.button_bomber_2:
-                ship_name.setText(playerFleet.get(2).getClass().getSimpleName().toString() + " #2");
+                ship_name.setText(playerFleet.get(2).getClass().getSimpleName().toString() + " #3");
                 updateAllFeaturesDisplay(2);
                 break;
             case R.id.button_fighter_1:
-                ship_name.setText(playerFleet.get(3).getClass().getSimpleName().toString() + " #1");
+                ship_name.setText(playerFleet.get(3).getClass().getSimpleName().toString());
                 updateAllFeaturesDisplay(3);
                 break;
             case R.id.button_fighter_2:
-                ship_name.setText(playerFleet.get(4).getClass().getSimpleName().toString() + " #2");
+                ship_name.setText(playerFleet.get(4).getClass().getSimpleName().toString() + " #1");
                 updateAllFeaturesDisplay(4);
                 break;
             case R.id.button_fighter_3:
-                ship_name.setText(playerFleet.get(5).getClass().getSimpleName().toString() + " #3");
+                ship_name.setText(playerFleet.get(5).getClass().getSimpleName().toString() + " #2");
                 updateAllFeaturesDisplay(5);
                 break;
 
@@ -170,6 +170,7 @@ public class FleetDashboardFragment extends Fragment implements View.OnClickList
             /* Attack buttons */
             case R.id.button_attack_enemy:
                 Intent intent = new Intent(getActivity(), EnemiesListActivity.class);
+                intent.putExtra("Game", currentGame);
                 getActivity().startActivity(intent);
                 break;
             case R.id.button_attack_asteroid:

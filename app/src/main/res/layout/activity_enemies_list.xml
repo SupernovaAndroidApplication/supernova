@@ -3,12 +3,65 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView android:id="@+id/listView_player1"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
-    <ListView android:id="@+id/listView_player2"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/button_enemy_1"
+            android:text="Enemy #1"
+            android:textColor="#fff"
+            android:background="#000" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/button_enemy_2"
+            android:text="Enemy #2"
+            android:textColor="#fff"
+            android:background="#000" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/button_enemy_3"
+            android:text="Enemy #3"
+            android:textColor="#fff"
+            android:background="#000" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView android:id="@+id/listView_player1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#ff82ff37"/>
+
+        <ListView android:id="@+id/listView_player2"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#ff80b2ff"/>
+
+        <ListView android:id="@+id/listView_player3"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#ffff7d46"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

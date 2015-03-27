@@ -25,7 +25,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_cruiser"
-                    android:text="Cruiser"
+                    android:text="Fighter #1"
                     android:textColor="#fff"
                     android:background="#000"
                     style="?android:attr/borderlessButtonStyle"/>
@@ -35,7 +35,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_bomber_1"
-                    android:text="Bomber #1"
+                    android:text="Fighter #2"
                     android:textColor="#fff"
                     android:background="#000" />
 
@@ -45,7 +45,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_bomber_2"
-                    android:text="Bomber #2"
+                    android:text="Fighter #3"
                     android:textColor="#fff"
                     android:background="#000" />
                 <Button
@@ -54,7 +54,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_fighter_1"
-                    android:text="Fighter #1"
+                    android:text="Cruiser"
                     android:textColor="#fff"
                     android:background="#000" />
 
@@ -64,7 +64,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_fighter_2"
-                    android:text="Fighter #2"
+                    android:text="Bomber #1"
                     android:textColor="#fff"
                     android:background="#000" />
                 <Button
@@ -73,7 +73,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:id="@+id/button_fighter_3"
-                    android:text="Fighter #3"
+                    android:text="Bomber #2"
                     android:textColor="#fff"
                     android:background="#000" />
             </LinearLayout>

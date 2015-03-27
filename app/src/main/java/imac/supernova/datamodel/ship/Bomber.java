@@ -7,8 +7,8 @@ import imac.supernova.datamodel.Player;
  */
 public class Bomber extends Ship {
 
-    public Bomber(Player owner){
-        super(owner);
+    public Bomber(Player owner, int id){
+        super(owner, id);
         setMaxHealth(3); // 1 = 50 and 3 = 300
         setHealth(getMaxHealth());
         setMaxDamage(2); // 1 = 150 and 2 = 300

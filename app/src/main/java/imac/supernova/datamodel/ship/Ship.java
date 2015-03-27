@@ -29,9 +29,10 @@ public class Ship implements Serializable{
      * Ship constructor
      * @param owner
      */
-    public Ship(Player owner) {
+    public Ship(Player owner, int id) {
         System.out.println("Création d'un vaisseau");
         this.owner = owner;
+        this.id = id;
         this.hasWeapon = false;
         this.hasShield = false;
     }

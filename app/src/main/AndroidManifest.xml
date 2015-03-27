@@ -41,7 +41,9 @@
         </activity>
         <activity
             android:name=".EnemiesListActivity"
-            android:label="@string/title_activity_enemies_list" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_enemies_list"
+            android:screenOrientation="landscape">
         </activity>
     </application>
 
